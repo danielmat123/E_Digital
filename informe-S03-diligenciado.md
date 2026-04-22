@@ -172,7 +172,7 @@ Montaje donde se identifiquen el LM35, el LM324 y las conexiones en la protoboar
 **Datos fuente:** Tabla 3
 **Conclusión a demostrar:** Relación lineal entre voltaje de entrada y lectura ADC, con pendiente ≈ 1023/5 = 204.6 bit/V.
 
-![Gráfica 1 — Linealidad del ADC](sandbox:/mnt/data/s03_grafica_linealidad_adc.png)
+![Gráfica 1 — Linealidad del ADC](imagenes/s03_grafica_linealidad_adc.png)
 
 **Ecuación de ajuste lineal:** `raw = 204.843 × V + 2.398`
 
