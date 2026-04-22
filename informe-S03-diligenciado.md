@@ -195,7 +195,7 @@ Montaje donde se identifiquen el LM35, el LM324 y las conexiones en la protoboar
 
 **Interpretación:**
 
-> Esta gráfica queda pendiente de construcción porque en el archivo compartido no aparece la serie temporal del monitor serial. Con esos datos se espera observar que ambos canales siguen la misma tendencia durante el calentamiento y que, una vez el sistema se estabiliza, las dos lecturas quedan muy cercanas. La principal diferencia debería verse en la suavidad del canal amplificado, ya que su resolución es mayor y permite notar cambios pequeños con más claridad.
+> Esta gráfica queda pendiente
 
 ---
 
@@ -567,10 +567,10 @@ void loop() {
 
 ### Dificultad 2: Comparación entre el canal directo y el canal amplificado *(si aplica)*
 
-- **Síntoma observado:** Al comparar ambos canales, uno parecía cambiar de forma más brusca que el otro.
-- **Causa identificada:** El canal directo tiene una resolución más baja, por lo que sus cambios se ven en saltos más grandes.
-- **Solución aplicada:** Se interpretaron los datos teniendo en cuenta la resolución de cada canal y no solo el valor instantáneo.
-- **Lección aprendida:** Una señal amplificada no solo aumenta el tamaño de la lectura, también facilita el seguimiento de cambios pequeños con mayor claridad.
+ **Síntoma observado:** Al comparar ambos canales, uno parecía cambiar de forma más brusca que el otro.
+ **Causa identificada:** El canal directo tiene una resolución más baja, por lo que sus cambios se ven en saltos más grandes.
+ **Solución aplicada:** Se interpretaron los datos teniendo en cuenta la resolución de cada canal y no solo el valor instantáneo.
+ **Lección aprendida:** Una señal amplificada no solo aumenta el tamaño de la lectura, también facilita el seguimiento de cambios pequeños con mayor claridad.
 
 ---
 
