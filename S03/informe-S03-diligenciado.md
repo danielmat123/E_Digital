@@ -98,6 +98,7 @@ Monitor Serial mostrando `raw` y `voltaje` en al menos 3 posiciones distintas de
 
 Como se esperaba los datos responden al criterio minimo y  tanto el raw como el voltaje aumentan con respecto a la intensidad luminica recibida por el sensor.
 
+
 ---
 
 ### Actividad 4 — LM35 Directo: Verificación de Temperatura
