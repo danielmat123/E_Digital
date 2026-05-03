@@ -16,7 +16,7 @@
 | | 4. Juan Sebastian Baquero Pinzon |
 | **Grupo** | 4 |
 | **Fecha de la práctica** | Miércoles 11 de Febrero, 2026 |
-| **Fecha de entrega** | Miércoles 11 de Marzo, 2026 (Informe Bloque 1) |
+| **Fecha de entrega** | Domingo 3 de Mayo, 2026 (Informe Bloque 1) |
 
 ---
 
