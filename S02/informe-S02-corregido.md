@@ -88,7 +88,7 @@ $T_{teórico} = 2\pi\sqrt{L/g}$ = 1.269 s
 
 Error porcentual: 0.62 %
 
-Los datos del péndulo presentan una buena concordancia con el modelo teórico del péndulo simple. La diferencia entre el valor experimental promedio y el valor calculado es pequeña, lo que indica que el sensor IR permitió medir el período con una precisión adecuada para esta práctica.
+Los datos del péndulo presentan una buena concordancia con el modelo teórico del péndulo simple. La diferencia entre el valor experimental promedio y el valor calculado es pequeña, lo que indica que el sensor IR permitió medir el período con una precisión adecuada para esta práctica. Fue necesaria la implementación de un intervalo de tiempo dentro del cual el pendulo pasa por delante del sensor para evitar que los valores reportados durante estos microsegundos (HIGH) fuesen tomados como otra oscilación del pendulo, es decir, en la consola solo se imprime un (HIGH) en vez de los correspondientes al intervalo de tiempo en el cual el pendulo, en la misma oscilación, se encuentra enfrente del sensor. 
 
 ### Reto 3: Datos reconstruidos para T² vs L
 
