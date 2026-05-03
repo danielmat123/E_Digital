@@ -95,7 +95,7 @@ Monitor Serial mostrando `raw` y `voltaje` en al menos 3 posiciones distintas de
 | **Rango (max − min)** |4.8 |1.5 |
 
 *Criterio mínimo: rango ≥ 200 cuentas. Dirección esperada: raw_oscuridad < raw_ambiente < raw_linterna.*
-
+Como se esperaba los datos responden al criterio minimo y  tanto el raw como el voltaje aumentan con respecto a la intensidad luminica recibida por el sensor.
 ---
 
 ### Actividad 4 — LM35 Directo: Verificación de Temperatura
