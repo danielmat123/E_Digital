@@ -147,6 +147,9 @@ Montaje donde se identifiquen el LM35, el LM324 y las conexiones en la protoboar
 | 4 | 3.180|651|
 
 *Criterio mínimo: secuencia monótonamente decreciente (cada fila ≤ fila anterior).*
+Se cumple el criterio, al igual que en la actividad 4, al colocar mas objetos entre el detector y la linterna, el voltaje, es decir la intensidad luminosa, registrada por el sensor disminuye. 
+
+
 
 ---
 
