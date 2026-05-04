@@ -137,15 +137,6 @@ Montaje donde se identifiquen el LM35, el LM324 y las conexiones en la protoboar
 
 ![Foto montaje — Actividad 5](imagenes/31.jpg)
 
-**Gráfica requerida — Actividad 5:**
-
-Temperatura vs. tiempo (dos canales) — tempC (A2) y tempAmp (A3) en el
-mismo eje Y (°C) vs. t(ms) en el eje X. Registrar al menos 30 puntos incluyendo el período
-de calentamiento con la mano. Debe demostrar que ambos canales convergen a la misma
-temperatura dentro de ±1 °C en condiciones estables.
-
-![Foto montaje — Actividad 5](imagenes/s03_temps_act5.png)
-
 ---
 
 ---
@@ -215,11 +206,11 @@ Se cumple el criterio, al igual que en la actividad 4, al colocar mas objetos en
 **Datos fuente:** Monitor Serial durante Actividad 5, ≥ 30 puntos incluyendo período de calentamiento con la mano
 **Conclusión a demostrar:** Ambos canales convergen a la misma temperatura dentro de ±1 °C en condiciones estables.
 
-![Gráfica 2 — Temperatura vs. Tiempo (dos canales)](imagenes/grafica-2-temperatura-tiempo.png)
+![Gráfica 2 — Temperatura vs. Tiempo (dos canales)](imagenes/s03_temps_act5.png)
 
 **Interpretación:**
 
-> Esta gráfica queda pendiente
+En la gráfica se muestran las temperaturas calculadas de las mediciones directas del LM35 (roja, canal A2) y las amplificada x5 del LM324 (azul, canal A3) en función del tiempo. Donde se evidencia que la lectura directa del sensor es más "escalonada", lo que es típico de una señal pequeña procesada directamente por el ADC, mientras que la lectura amplificada mediante el LM324 se observa mucho más suave y definida, lo que demuestra que la amplificación mejora la resolución de la medida.
 
 ---
 
