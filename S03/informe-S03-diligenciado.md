@@ -118,7 +118,7 @@ Como se esperaba los datos responden al criterio minimo y  tanto el raw como el 
 |-----------|:-----------:|:----------------:|
 | Reposo (temperatura ambiente) |45 | 21.994|
 | Tras cubrir LM35 con la mano (30 s) | 57| 27.859|
-| **ΔT (diferencia)** | 5.865| |
+| **ΔT (diferencia)** | | 5.865 |
 
 *Criterio mínimo: temperatura en reposo entre 15–35 °C; ΔT ≥ 2 °C.*
 
