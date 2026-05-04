@@ -137,6 +137,15 @@ Montaje donde se identifiquen el LM35, el LM324 y las conexiones en la protoboar
 
 ![Foto montaje — Actividad 5](imagenes/31.jpg)
 
+**Gráfica requerida — Actividad 5:**
+
+Temperatura vs. tiempo (dos canales) — tempC (A2) y tempAmp (A3) en el
+mismo eje Y (°C) vs. t(ms) en el eje X. Registrar al menos 30 puntos incluyendo el período
+de calentamiento con la mano. Debe demostrar que ambos canales convergen a la misma
+temperatura dentro de ±1 °C en condiciones estables.
+
+![Foto montaje — Actividad 5](imagenes/s03_temps_act5.png)
+
 ---
 
 ---
