@@ -580,12 +580,12 @@ void loop() {
 
 ---
 
-### Dificultad 2: Comparación entre el canal directo y el canal amplificado *(si aplica)*
+### Dificultad 2: Comparación entre el canal directo y el canal amplificado 
 
- **Síntoma observado:** Al comparar ambos canales, uno parecía cambiar de forma más brusca que el otro.
- **Causa identificada:** El canal directo tiene una resolución más baja, por lo que sus cambios se ven en saltos más grandes.
- **Solución aplicada:** Se interpretaron los datos teniendo en cuenta la resolución de cada canal y no solo el valor instantáneo.
- **Lección aprendida:** Una señal amplificada no solo aumenta el tamaño de la lectura, también facilita el seguimiento de cambios pequeños con mayor claridad.
+- **Síntoma observado:** Al comparar ambos canales, uno parecía cambiar de forma más brusca que el otro.
+- **Causa identificada:** El canal directo tiene una resolución más baja, por lo que sus cambios se ven en saltos más grandes.
+- **Solución aplicada:** Se interpretaron los datos teniendo en cuenta la resolución de cada canal y no solo el valor instantáneo.
+- **Lección aprendida:** Una señal amplificada no solo aumenta el tamaño de la lectura, también facilita el seguimiento de cambios pequeños con mayor claridad.
 
 ---
 
