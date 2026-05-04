@@ -85,7 +85,7 @@ Monitor Serial mostrando `raw` y `voltaje` en al menos 3 posiciones distintas de
 ![Captura Monitor Serial — Actividad 2](imagenes/2.png)
 
 **Análisis de linealidad:**
-Al calccular la pendiente del ajuste lineal (por mínimos cuadrados) de `raw vs V-multimetro` se obtuvo el valor de 204.84 bit/V, el cual presenta un error relativo respecto al valor teórico de 204.6 bit/V del 0.11%. Lo que indica una excelente linealidad en el ADC del microcontrolador y una calibración adecuada.
+Al calcular la pendiente del ajuste lineal (por mínimos cuadrados) de `raw vs V-multimetro` se obtuvo el valor de 204.84 bit/V, el cual presenta un error relativo respecto al valor teórico de 204.6 bit/V del 0.11%. Lo que indica una excelente linealidad en el ADC del microcontrolador y una calibración adecuada.
 
 
 ---
