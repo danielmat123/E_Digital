@@ -210,7 +210,7 @@ Se cumple el criterio, al igual que en la actividad 4, al colocar mas objetos en
 
 **Interpretación:**
 
-> En la gráfica se muestran las temperaturas calculadas de la medición directas del LM35 (roja, canal A2) y la amplificada x5 del LM324 (azul, canal A3) en función del tiempo. Donde se evidencia que la lectura directa del sensor es más "escalonada", lo que es típico de una señal pequeña procesada directamente por el ADC, mientras que la lectura amplificada mediante el LM324 se observa mucho más suave y definida, lo que demuestra que la amplificación mejora la resolución de la medida.
+> En la gráfica se muestran las temperaturas calculadas de la medición directas del LM35 (roja, canal A2) y la amplificada x5 del LM324 (azul, canal A3) en función del tiempo. Donde se evidencia que la lectura directa del sensor es más "escalonada", lo que es típico de una señal pequeña procesada directamente por el ADC, mientras que la lectura amplificada mediante el LM324 se observa mucho más suave y definida, lo que demuestra que la amplificación mejora la resolución de la medida. Sin embargo, gráficamente se observa que ambas llevan una misma tendencia en el tiempo y muchos de los valores de ambas graficas estan superpuestos o poseen una diferencia menor a ±1 °C ( la grafica posee una apreciacion de ±2 °C).
 
 ---
 
