@@ -31,10 +31,10 @@
 
 | Pulsación # | `Bruto` acumulado | `ConDebounce_SW` acumulado |
 |:-----------:|:-----------------:|:--------------------------:|
-| 5 | 5|4 |
-| 10 | 10|9 |
-| 15 | 15|14 |
-| 20 | 20|19 |
+| 5 | 6 | 5 |
+| 10 | 11 | 10 |
+| 15 | 16 | 15 |
+| 20 | 21 | 20 |
 
 *La diferencia `Bruto − ConDebounce_SW` cuantifica los rebotes acumulados.*
 
@@ -52,6 +52,9 @@
 Monitor Serial de la Fase A mostrando columnas `t(ms)`, `Bruto` y `ConDebounce_SW` tras al menos 10 pulsaciones.
 
 ![Captura Monitor Serial — Fase A](imagenes/1.png)
+
+**Comparasión entre los métodos de Debouncing:**
+El porcentaje de reducción de falsos positivos acumulado del debouncing por software obtenido de la Tabla 1 es del 7.4%, mientras que el obtenido de la Tabla 2 es del 0%. De modo que se puede concluir que para el contador ISR la técnica de debouncing por hardware (capacitor RC) es la más efectiva, pues preserva la totalidad de las pulsaciones sin dar lugar a falsos positivos.
 
 ---
 
@@ -73,12 +76,17 @@ Monitor Serial de la Fase A mostrando columnas `t(ms)`, `Bruto` y `ConDebounce_S
 |  9 (máx.)  |       4.93       |      1010      |      4.936      |
 
 
-*Voltaje calculado = `raw × 5.0 / 1023.0`. La verificación de linealidad se realiza comparando V multímetro contra raw.*
+*Voltaje calculado = `raw × 5.0 / 1023.0`. La verificación de linealidad se realiza comparando V
+multímetro contra raw.*
 
 **Captura requerida — Actividad 2:**
 Monitor Serial mostrando `raw` y `voltaje` en al menos 3 posiciones distintas del potenciómetro.
 
 ![Captura Monitor Serial — Actividad 2](imagenes/2.png)
+
+**Análisis de linealidad:**
+Al calccular la pendiente del ajuste lineal (por mínimos cuadrados) de `raw vs V-multimetro` se obtuvo el valor de 204.84 bit/V, el cual presenta un error relativo respecto al valor teórico de 204.6 bit/V del 0.11%. Lo que indica una excelente linealidad en el ADC del microcontrolador y una calibración adecuada.
+
 
 ---
 
