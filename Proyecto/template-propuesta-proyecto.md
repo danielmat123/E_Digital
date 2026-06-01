@@ -17,23 +17,23 @@
 
 ## 1. Descripción del Proyecto
 
-**¿Qué van a construir?**
+El proyecto consiste en un sistema de levitación magnética activa controlado con Arduino. El dispositivo consistirá en una base con bobinas electromagnéticas, sensores de posición y un microcontrolador que permitirá mantener suspendido un pequeño imán de neodimio sin contacto físico directo. Eeste sistema medirá constantemente la posición del imán y ajustará la corriente de las bobinas para estabilizarlo.
 
-Describan el dispositivo, instrumento o sistema que van a diseñar y fabricar. Puede ser:
+El dispositivo sirve como una plataforma experimental y didáctica para estudiar electromagnetismo, sensores, control automático y estabilidad dinámica. La necesidad que satisface es poder observar de manera concreta cómo un sistema físico inestable puede estabilizarse mediante medición, realimentación y actuación electrónica. En otras palabras, permite convertir conceptos abstractos como campo magnético, fuerza electromagnética, sensores Hall y control PID en un experimento visible e interactivo.
 
-- La automatización de un experimento de física
-- Un instrumento de medición
-- Un dispositivo interactivo (instrumento musical, controlador, juego electrónico)
-- Un sistema de control o monitoreo
-- Cualquier proyecto que aproveche el toolkit del curso
+Este sistema podría ser usado por estudiantes y docentes de física, ingeniería, electrónica o áreas afines. En un laboratorio o clase, permitiría demostrar cómo un microcontrolador puede recibir información del entorno, procesarla y actuar sobre un sistema físico real. También serviría como prototipo para experimentar con algoritmos de control, calibración de sensores, respuesta ante perturbaciones y movimiento controlado en un eje.
 
-Incluyan:
+El dispositivo recibirá varias entradas. La primera será la lectura de sensores: un sensor de distancia medirá la altura del imán y sensores Hall detectarán desviaciones laterales del campo magnético. También recibirá entradas del usuario, como encender el sistema, seleccionar una altura objetivo o modificar parámetros básicos del control. A partir de esas entradas, el Arduino calculará la corrección necesaria.
 
-- ¿Qué hace su dispositivo? ¿Qué problema resuelve o qué necesidad satisface?
-- ¿Quién lo usaría y para qué?
-- ¿Qué entradas recibe y qué salidas produce? (señales, movimiento, sonido, luz, datos, etc.)
-- **Describan una sesión típica de uso:** desde que el usuario enciende el dispositivo hasta que obtiene un resultado. ¿Qué ve, qué escucha, qué hace?
+Las salidas principales serán señales PWM enviadas a los MOSFETs que controlan la corriente en las bobinas. Esas señales producirán campos magnéticos variables, los cuales generarán movimiento o estabilización del imán. Además, el sistema podrá mostrar datos en el monitor serial o en una pantalla sencilla: altura medida, error respecto al punto objetivo, intensidad relativa de las bobinas y estado del sistema, por ejemplo “calibrando”, “levitando”, “corrigiendo” o “inestable”.
 
+Una sesión típica de uso sería la siguiente. Primero, el usuario conecta la fuente de alimentación y enciende el Arduino. El sistema inicia una fase de calibración: mide los sensores sin el imán o con el imán en una posición inicial conocida, y establece valores de referencia.
+
+Después, el usuario activa el modo de levitación. Las bobinas internas comienzan a generar un campo magnético controlado y el Arduino ajusta la corriente para llevar el imán hacia una altura objetivo. En el monitor serial o pantalla, el usuario observa la altura medida y el error respecto al setpoint. Cuando el imán alcanza una posición estable, el sistema mantiene la levitación haciendo pequeñas correcciones continuas.
+
+Si el imán se desplaza un poco hacia un lado, los sensores Hall detectan el cambio y el Arduino activa las bobinas laterales necesarias para devolverlo al centro. Visualmente, el usuario verá el imán suspendido con pequeñas oscilaciones mientras el sistema lo corrige. También podría cambiar la altura objetivo para observar cómo el imán sube o baja suavemente. Al finalizar, el usuario desactiva la levitación, reduce la corriente de las bobinas y retira el imán de forma segura.
+
+En síntesis, vamos a construir un prototipo interactivo de control electromagnético que permite levitar, estabilizar y desplazar de forma limitada un imán mediante sensores, bobinas y Arduino. Su propósito principal es demostrar cómo un sistema inestable puede controlarse en tiempo real usando realimentación electrónica.
 ---
 
 ## 2. Solución Propuesta — Diagrama de Bloques
