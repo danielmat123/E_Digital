@@ -2,7 +2,7 @@
 
 **Grupo #:** ___  
 **Integrantes:**  
-1. ___  
+1. Daniel Mateo González Sánchez  
 2. ___  
 3. ___  
 4. ___  
