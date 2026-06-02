@@ -25,7 +25,7 @@ Este sistema podría ser usado por estudiantes y docentes de física, ingenierí
 
 El dispositivo recibirá varias entradas. La primera será la lectura de sensores: un sensor de distancia medirá la altura del imán y sensores Hall detectarán desviaciones laterales del campo magnético. También recibirá entradas del usuario, como encender el sistema, seleccionar una altura objetivo o modificar parámetros básicos del control. A partir de esas entradas, el Arduino calculará la corrección necesaria.
 
-Las salidas principales serán señales PWM enviadas a los MOSFETs que controlan la corriente en las bobinas. Esas señales producirán campos magnéticos variables, los cuales generarán movimiento o estabilización del imán. Además, el sistema podrá mostrar datos en el monitor serial o en una pantalla sencilla: altura medida, error respecto al punto objetivo, intensidad relativa de las bobinas y estado del sistema, por ejemplo “calibrando”, “levitando”, “corrigiendo” o “inestable”.
+Las salidas principales serán señales PWM enviadas a los MOSFETs que controlan la corriente en las bobinas. Esas señales producirán campos magnéticos variables, los cuales generarán movimiento o estabilización del imán. Además, el sistema podrá mostrar datos en el monitor serial: altura medida, error respecto al punto objetivo, intensidad relativa de las bobinas y estado del sistema, por ejemplo “calibrando”, “levitando”, “corrigiendo” o “inestable”.
 
 Una sesión típica de uso sería la siguiente. Primero, el usuario conecta la fuente de alimentación y enciende el Arduino. El sistema inicia una fase de calibración: mide los sensores sin el imán o con el imán en una posición inicial conocida, y establece valores de referencia.
 
