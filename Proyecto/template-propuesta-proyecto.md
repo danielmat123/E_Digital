@@ -76,17 +76,31 @@ La arquitectura depende del tipo de proyecto. Algunos ejemplos:
 
 Marquen con ✅ y describan cómo aplican cada habilidad. Si un subsistema no usa cierta habilidad, déjenlo en blanco.
 
-| Habilidad del curso | Subsistema 1: (nombre) | Subsistema 2: (nombre) | Subsistema 3: (nombre) |
+## Subsistemas definidos
+
+| Subsistema | Nombre | Descripción |
+|---|---|---|
+| Subsistema 1 | Sensado y entradas | Lectura del sensor de distancia, sensores Hall, botón de encendido/parada, setpoint y comandos del usuario. |
+| Subsistema 2 | Control y procesamiento | Calibración, filtrado, cálculo de error, control PID vertical, corrección lateral, lógica de seguridad y máquina de estados. |
+| Subsistema 3 | Actuación y visualización | Generación de PWM para MOSFETs y bobinas, visualización en OLED, monitor serial y apagado seguro. |
+
+---
+
+## Matriz de trazabilidad
+
+| Habilidad del curso | Subsistema 1: Sensado y entradas | Subsistema 2: Control y procesamiento | Subsistema 3: Actuación y visualización |
 |---|---|---|---|
-| **S1** — E/S digital, protoboard | | | |
-| **S2** — Timing preciso, interrupciones | | | |
-| **S3** — Debouncing, ADC, sensores analógicos | | | |
-| **S4** — Comunicación UART + Python | | | |
-| **S5** — PWM, H-Bridge, actuadores | | | |
-| **S6** — Adquisición multicanal, OLED I2C | | | |
-| **S7** — Control PID | | | |
-| **S8** — Filtrado digital, oversampling, triggers | | | |
-| **S9** — DAC MCP4725, FSM, generación de señales | | | |
+| **S1 — E/S digital, protoboard** | ✅ Botón de encendido/parada y entradas digitales básicas del sistema. | ✅ Lógica condicional para cambiar entre estados como apagado, calibrando, levitando o inestable. | ✅ LED de diagnóstico o indicador de estado; montaje inicial de pruebas en protoboard. |
+| **S2 — Timing preciso, interrupciones** | ✅ Lectura temporizada de sensores; posible interrupción para botón o evento crítico. | ✅ Lazo de control ejecutado con periodo fijo usando `millis()` o `micros()`, evitando `delay()`. | ✅ Actualización periódica de PWM, OLED y Serial sin bloquear el control. |
+| **S3 — Debouncing, ADC, sensores analógicos** | ✅ Lectura ADC del sensor de distancia y sensores Hall; debouncing del botón de usuario. | ✅ Conversión de lecturas crudas a altura, desviación lateral y valores calibrados. |  |
+| **S4 — Comunicación UART + Python** | ✅ Entrada de comandos por Serial: iniciar, detener, calibrar o cambiar setpoint. | ✅ Parser serial no bloqueante para modificar parámetros sin detener el lazo de control. | ✅ Envío de telemetría: altura, error, PWM, estado del sistema y datos para registro en Python. |
+| **S5 — PWM, H-Bridge, actuadores** |  | ✅ Cálculo de señales de mando a partir del error vertical y lateral. | ✅ Señales PWM enviadas a MOSFETs para regular la corriente en las bobinas internas y externas. |
+| **S6 — Adquisición multicanal, OLED I2C** | ✅ Lectura multicanal: distancia, sensores Hall y entradas del usuario. | ✅ Organización de datos por canales, calibración y procesamiento por tiempos separados. | ✅ Pantalla OLED I2C para mostrar altura, error, estado y potencia relativa de bobinas. |
+| **S7 — Control PID** | ✅ Los sensores entregan las variables medidas: altura y desviación lateral. | ✅ PID para altura y control PD/PID simplificado para corrección lateral. | ✅ La salida del controlador se convierte en PWM para cada grupo de bobinas. |
+| **S8 — Filtrado digital, oversampling, triggers** | ✅ Reducción de ruido en sensores de distancia y Hall mediante media móvil, IIR u oversampling. | ✅ Señales filtradas antes del PID para evitar correcciones debidas al ruido. | ✅ Triggers de seguridad: si el error supera un umbral, se apagan las bobinas. |
+| **S9 — DAC MCP4725, FSM, generación de señales** | ✅ Setpoint variable como señal de referencia; comandos o botones cambian el modo del sistema. | ✅ Máquina de estados finita: `OFF`, `CALIBRATING`, `READY`, `LEVITATING`, `UNSTABLE`, `FAULT`. | ✅ No se requiere DAC si las bobinas se controlan por PWM; sí se usa la generación controlada de señales y estados. |
+
+
 
 > Si el proyecto completo usa menos de 4 habilidades distintas del curso, probablemente es demasiado simple. Pero no inflen la matriz: solo marquen las habilidades que REALMENTE usan.
 
