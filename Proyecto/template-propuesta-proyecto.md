@@ -98,7 +98,7 @@ Marquen con ✅ y describan cómo aplican cada habilidad. Si un subsistema no us
 | **S6 — Adquisición multicanal, OLED I2C** | ✅ Lectura multicanal: distancia, sensores Hall y entradas del usuario. | ✅ Organización de datos por canales, calibración y procesamiento por tiempos separados. |  |
 | **S7 — Control PID** | ✅ Los sensores entregan las variables medidas: altura y desviación lateral. | ✅ PID para altura y PID para corrección lateral. | ✅ La salida del controlador se convierte en PWM para cada grupo de bobinas. |
 | **S8 — Filtrado digital, oversampling, triggers** | ✅ Reducción de ruido en sensores de distancia y Hall mediante media móvil, IIR u oversampling. | ✅ Señales filtradas antes del PID para evitar correcciones debidas al ruido. | ✅ Triggers de seguridad: si el error supera un umbral, se apagan las bobinas. |
-| **S9 — DAC MCP4725, FSM, generación de señales** | ✅ Setpoint variable como señal de referencia; comandos o botones cambian el modo del sistema. | ✅ Máquina de estados finita: `OFF`, `CALIBRATING`, `READY`, `LEVITATING`, `UNSTABLE`, `FAULT`. | ✅ No se requiere DAC si las bobinas se controlan por PWM; sí se usa la generación controlada de señales y estados. |
+| **S9 — DAC MCP4725, FSM, generación de señales** | ✅ Setpoint variable como señal de referencia; comandos cambian el modo del sistema. | ✅ Máquina de estados finita: `OFF`, `CALIBRATING`, `READY`, `LEVITATING`, `UNSTABLE`, `FAULT`. | |
 
 
 
