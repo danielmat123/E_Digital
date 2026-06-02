@@ -205,8 +205,11 @@ void loop() {
 - **Pre-requisitos:** ¿Qué debe estar listo ANTES de empezar este entregable?
 - **Definición de "terminado":** ¿Cómo se sabe, sin ambigüedad, que este entregable está completo?
 - ¿Qué riesgos podrían retrasar este entregable y cómo los mitigan?
+  
 Quema de las bobinas causada por mal manejo del voltaje. Se puede mitigar utilizando resistencias adicionales o por medio del PWM del Arduino.
+
 Poca sensibilidad de parte de los sensores Hall. Se puede mitigar cambiando el sensor o aumentando la cantidad de sensores.
+
 Quema del MOSFET IRLZ44N por la descarga de la bobina si no se utiliza el diodo. Se mitiga siendo cuidadoso.
 
 > Si un entregable se retrasa, ¿afecta a los demás? Si el Entregable 1 depende de un componente que no llegó, ¿hay Plan B?
