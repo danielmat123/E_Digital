@@ -175,15 +175,15 @@ void loop() {
 | Componente | Cant. | Costo unit. | Costo total | Proveedor | Disponible? | Plan B si no se consigue |
 |---|---|---|---|---|---|---|
 | Arduino Uno | 1 | Ya tienen | $0 | Kit | ✅ | — |
-| Pca9685 | | | | | | |
-| Led | | | | | | |
-| Allegro A1324 | | | | | | |
-| MOSFET IRLZ44N | | | | | | |
-| Diodo 1N5408 | | | | | | |
-| Alambre de cobre calibre 22 | 80 m | | | | | |
-|  | | | | | | |
+| Pca9685 | 1 | 30.000 | 30.000 | Mercadolibre | ✅ | |
+| Led | 4 | 200 | 800 | Tienda 30 |✅ | |
+| Allegro A1324 | 5 | | 8.000 | Mercadolibre |✅| |
+| MOSFET IRLZ44N | 8 | 6.000 | 48.000 | Mercadolibre |✅ | |
+| Diodo 1N5408 | 10 | | 6.000 | Mercadolibre |✅ | |
+| Alambre de cobre calibre 22 | 80 m | | 88.000 | Mercadolibre|✅| |
+| Iman de neodimio, pequeño | 1 | | 1.000 | Ferreteria |✅ | |
 
-**Costo total estimado:** $___
+**Costo total estimado:** $190.000
 
 > ⚠️ **Crítico:** Si un componente es indispensable y no se consigue, el proyecto está en riesgo. Definan un Plan B para cada componente crítico.
 
