@@ -175,8 +175,13 @@ void loop() {
 | Componente | Cant. | Costo unit. | Costo total | Proveedor | Disponible? | Plan B si no se consigue |
 |---|---|---|---|---|---|---|
 | Arduino Uno | 1 | Ya tienen | $0 | Kit | ✅ | — |
-| Sensor LM35 | 1 | $1.50 | $1.50 | Cra 9 | ✅ | Termistor NTC + calibración manual |
-| ... | | | | | | |
+| Pca9685 | | | | | | |
+| Led | | | | | | |
+| Allegro A1324 | | | | | | |
+| MOSFET IRLZ44N | | | | | | |
+| Diodo 1N5408 | | | | | | |
+| Alambre de cobre calibre 22 | 80 m | | | | | |
+|  | | | | | | |
 
 **Costo total estimado:** $___
 
