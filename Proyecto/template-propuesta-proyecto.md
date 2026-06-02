@@ -158,7 +158,13 @@ Capacitores recomendados:
 - 470 µF entre +12 V y GND cerca del banco de bobinas.
 - 100 µF entre 5 V y GND cerca del Arduino/PCA9685.
 
-*El esquemático detallado puede realizarse en Fritzing, Tinkercad o dibujarse manualmente indicando todas las conexiones descritas anteriormente.*
+#### Esquemático del sistema
+
+![Diagrama esquemático del sistema de levitación magnética](graphviz.svg)
+
+*Figura 1. Diagrama esquemático general del sistema de levitación magnética.*
+
+El esquemático muestra las conexiones entre el Arduino Uno, el PCA9685, los sensores Hall, los MOSFETs de potencia, las bobinas electromagnéticas, los diodos de protección y las fuentes de alimentación de 5 V y 12 V.
 
 ### 4.2 Tabla de Pines
 
