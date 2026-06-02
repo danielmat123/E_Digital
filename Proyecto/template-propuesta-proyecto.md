@@ -110,20 +110,78 @@ Marquen con ✅ y describan cómo aplican cada habilidad. Si un subsistema no us
 
 ### 4.1 Diagrama Esquemático
 
-Dibujen el esquemático completo mostrando:
-- Todos los pines de Arduino utilizados
-- Conexiones de sensores, actuadores, display, DAC
-- Resistencias, capacitores y componentes de protección
-- Alimentación (5V, 12V, GND)
+El sistema está compuesto por un Arduino Uno que realiza la adquisición de datos de cinco sensores Hall Allegro A1324 y ejecuta el algoritmo de control PID. Para ampliar la cantidad de salidas PWM disponibles se utiliza un módulo PCA9685 conectado mediante comunicación I2C.
 
-*Pueden dibujarlo a mano (foto) o usar Fritzing/Tinkercad.*
+Las ocho bobinas electromagnéticas son accionadas mediante ocho MOSFET IRLZ44N configurados como interruptores de lado bajo (Low Side Switching). Cada bobina posee un diodo de rueda libre 1N5408 conectado en paralelo para proteger los MOSFET frente a los picos de tensión generados por la inductancia.
+
+#### Alimentación
+
+- Arduino Uno: 5 V
+- PCA9685: 5 V
+- Sensores Hall A1324: 5 V
+- Bobinas electromagnéticas: Fuente externa de 12 V
+- Todas las tierras (GND) se encuentran conectadas en común.
+
+#### Conexiones principales
+
+Arduino Uno:
+- SDA (A4) → SDA del PCA9685
+- SCL (A5) → SCL del PCA9685
+- A0 → Sensor Hall 1
+- A1 → Sensor Hall 2
+- A2 → Sensor Hall 3
+- A3 → Sensor Hall 4
+- A4 → Sensor Hall 5 (si se usa I2C, mover este sensor a otro pin analógico disponible según la implementación final)
+
+PCA9685:
+- Canal 0 → MOSFET Bobina Interior 1
+- Canal 1 → MOSFET Bobina Interior 2
+- Canal 2 → MOSFET Bobina Interior 3
+- Canal 3 → MOSFET Bobina Interior 4
+- Canal 4 → MOSFET Bobina Exterior 1
+- Canal 5 → MOSFET Bobina Exterior 2
+- Canal 6 → MOSFET Bobina Exterior 3
+- Canal 7 → MOSFET Bobina Exterior 4
+
+Etapa de potencia (repetida para las 8 bobinas):
+- Salida PCA9685 → Resistencia 220 Ω → Gate del IRLZ44N
+- Gate → Resistencia 10 kΩ → GND (Pull-down)
+- Source → GND
+- Drain → Terminal negativo de la bobina
+- Terminal positivo de la bobina → +12 V
+- Diodo 1N5408 en paralelo con la bobina
+  - Cátodo a +12 V
+  - Ánodo al Drain
+
+Capacitores recomendados:
+- 100 nF entre VCC y GND cerca de cada sensor Hall.
+- 470 µF entre +12 V y GND cerca del banco de bobinas.
+- 100 µF entre 5 V y GND cerca del Arduino/PCA9685.
+
+*El esquemático detallado puede realizarse en Fritzing, Tinkercad o dibujarse manualmente indicando todas las conexiones descritas anteriormente.*
 
 ### 4.2 Tabla de Pines
 
 | Pin Arduino | Conectado a | Función |
-|---|---|---|
-| D2 | Botón 1 (INPUT_PULLUP, LOW al presionar) | Cambio de modo |
-| ... | ... | ... |
+|------------|-------------|----------|
+| A0 | Sensor Hall A1324 #1 | Medición campo magnético eje X |
+| A1 | Sensor Hall A1324 #2 | Medición campo magnético eje Y |
+| A2 | Sensor Hall A1324 #3 | Medición campo magnético eje Z |
+| A3 | Sensor Hall A1324 #4 | Sensor auxiliar de posición |
+| A4 (SDA) | PCA9685 SDA | Comunicación I2C |
+| A5 (SCL) | PCA9685 SCL | Comunicación I2C |
+| 5V | PCA9685 VCC | Alimentación módulo PWM |
+| 5V | Sensores A1324 | Alimentación sensores |
+| GND | PCA9685, sensores y fuente externa | Referencia común |
+| PCA9685 CH0 | MOSFET 1 | Bobina interior 1 |
+| PCA9685 CH1 | MOSFET 2 | Bobina interior 2 |
+| PCA9685 CH2 | MOSFET 3 | Bobina interior 3 |
+| PCA9685 CH3 | MOSFET 4 | Bobina interior 4 |
+| PCA9685 CH4 | MOSFET 5 | Bobina exterior 1 |
+| PCA9685 CH5 | MOSFET 6 | Bobina exterior 2 |
+| PCA9685 CH6 | MOSFET 7 | Bobina exterior 3 |
+| PCA9685 CH7 | MOSFET 8 | Bobina exterior 4 |
+
 
 ### 4.3 Arquitectura de Software
 
