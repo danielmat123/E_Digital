@@ -269,9 +269,9 @@ void loop() {
 
 | Entregable | Semana | ¿Qué se demuestra? | Pre-requisitos | Definición de "terminado" |
 |:---:|:---:|---|---|---|
-| **Entregable 1** | Semana 2 | ___ | ___ | ___ |
-| **Entregable 2** | Semana 5 | ___ | ___ | ___ |
-| **Entregable 3 (Final)** | Semana 7 | Sistema completo funcionando + defensa | ___ | ___ |
+| **Entregable 1** | Semana 2 | Levitación simple del iman | Control PID (1) de las 4 bobinas interiores en serie  | Es observable la levitación del iman aunque oscile horizontalmente |
+| **Entregable 2** | Semana 5 | Control del eje vertical de movimiento del iman | Entregable 1 + 4 exteriores en serie PID(2) | Correcto movimiento del iman en el eje vertical, aunque aun presente oscilaciónes en el horizontal |
+| **Entregable 3 (Final)** | Semana 7 | Sistema completo funcionando + defensa | Entregable 2 modificado: un PID x bobina (8) |  Correcto movimiento del iman en el eje vertical, el sistema mitiga las oscilaciónes en el eje horizontal |
 
 **Para cada entregable, definan:**
 - ¿Qué subsistemas estarán funcionando?
