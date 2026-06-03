@@ -313,7 +313,7 @@ Quema del MOSFET IRLZ44N por la descarga de la bobina si no se utiliza el diodo.
 *Ejemplo: "Aunque no funcione el control PID completo, al menos mostraremos el sensor midiendo temperatura con logging CSV y visualización en OLED."*
 
 **Nuestro MVP es:**
-
+Que hasta la segunda entrega funcione correctamente, obtener un control de la altura del iman. Consideramos este punto del proyecto viable porque solo implica configurar dos PID, uno para las bobinas internas en serie, las que producen la levitación y otro PID para el sistema de bobinas externas en serie para el control de la altura del iman. La tercera entrega es mas complicada porque implica un PID por bobina para la autocompensación del sistema.
 ___
 
 **Prueba de aceptación del MVP:** ¿Qué evidencia concreta demostraría que el MVP está completo?
@@ -335,6 +335,15 @@ Definan al menos UNA métrica cuantitativa y falsable:
 
 **Nuestra métrica de éxito:**
 
+Levitación sin soporte mecánico ≥30 s
+
+Altura respecto al punto de equilibrio ±2 mm
+
+Recuperación tras perturbación < 2s
+
+Sin contacto físico imán–bobinas ✓
+
+Coincidencia con predicción de simulación en equilibrio estable ✓
 ___
 
 ---
@@ -343,10 +352,11 @@ ___
 
 **¿Cómo van a probar que su dispositivo funciona correctamente?**
 
-- ¿Contra qué referencia validan? (valor teórico, otro instrumento, prueba con usuarios, comparación A/B)
-- Si es un instrumento de medición: ¿cuántas mediciones van a tomar? (mínimo N ≥ 10)
-- Si es un dispositivo interactivo: ¿cómo prueban que la experiencia funciona?
-- ¿Qué análisis van a hacer? (promedio, desviación estándar, error relativo, tasa de aciertos, etc.)
+Para el primer entregable: apreciación de la levitación.
+
+La validación numérica de resultados aplica desde el segundo entregable: Con base en el siguiente codigo, es posible calcular la altura que se puede alcanzar con el sistema de bobinas, se toma como valor teorico y es comparable con la altura real alcanzada por el iman. 
+
+https://colab.research.google.com/drive/1DC9hNYvbjp36KYUwSNDwW6If_Ans_DAd?usp=sharing
 
 ---
 
