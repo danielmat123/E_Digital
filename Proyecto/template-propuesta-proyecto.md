@@ -280,6 +280,9 @@ void loop() {
 La operación en vivo del sistema, acorde con cada una de las entregas.
 
 - **Pre-requisitos:** ¿Qué debe estar listo ANTES de empezar este entregable?
+
+Cada entregable depende del correcto funcionamiento del anterior, de manera que como entrega mínima definimos el segundo entregable con evidencias de haber intentado implementar los requisitos de la última. 
+
 - **Definición de "terminado":** ¿Cómo se sabe, sin ambigüedad, que este entregable está completo?
 
 Para el primer entregable: Operación correcta del sistema por mas de 30s 
