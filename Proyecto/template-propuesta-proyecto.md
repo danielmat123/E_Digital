@@ -313,13 +313,14 @@ Quema del MOSFET IRLZ44N por la descarga de la bobina si no se utiliza el diodo.
 *Ejemplo: "Aunque no funcione el control PID completo, al menos mostraremos el sensor midiendo temperatura con logging CSV y visualización en OLED."*
 
 **Nuestro MVP es:**
-Que hasta la segunda entrega funcione correctamente, obtener un control de la altura del iman. Consideramos este punto del proyecto viable porque solo implica configurar dos PID, uno para las bobinas internas en serie, las que producen la levitación y otro PID para el sistema de bobinas externas en serie para el control de la altura del iman. La tercera entrega es mas complicada porque implica un PID por bobina para la autocompensación del sistema.
+Lograr que lo que llamamos "segunda entrega" funcione correctamente, obtener un control de la altura del iman. Consideramos este punto del proyecto viable porque solo implica configurar dos PID, uno para las bobinas internas en serie, las que producen la levitación y otro PID para el sistema en serie de bobinas externas, para el control de la altura del iman. La tercera entrega es mas complicada porque implica un PID por bobina para la autocompensación del sistema.
 ___
 
 **Prueba de aceptación del MVP:** ¿Qué evidencia concreta demostraría que el MVP está completo?
 
 *Ejemplo: "El sensor LM35 muestra temperatura en el OLED con actualización cada 500 ms, y el script Python guarda un CSV con al menos 100 filas de datos correctos."*
 
+ En nuestro caso: El iman levita, es controlable su altura y el valor resulta comparable con el valor teorico.
 ___
 
 ---
