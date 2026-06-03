@@ -276,8 +276,17 @@ void loop() {
 **Para cada entregable, definan:**
 - ¿Qué subsistemas estarán funcionando?
 - ¿Qué evidencia van a mostrar? (demo en vivo, datos, gráficas)
+  
+La operación en vivo del sistema, acorde con cada una de las entregas.
+
 - **Pre-requisitos:** ¿Qué debe estar listo ANTES de empezar este entregable?
 - **Definición de "terminado":** ¿Cómo se sabe, sin ambigüedad, que este entregable está completo?
+
+Para el primer entregable: Operación correcta del sistema por mas de 30s 
+
+Para el segundo: Operación correcta del sistema tras variar la altura del iman.
+
+Para la ultima entrega: Autocompensación del sistema y correcto movimiento vertical del iman.
 - ¿Qué riesgos podrían retrasar este entregable y cómo los mitigan?
   
 Quema de las bobinas causada por mal manejo del voltaje. Se puede mitigar utilizando resistencias adicionales o por medio del PWM del Arduino.
