@@ -100,7 +100,11 @@ Marquen con ✅ y describan cómo aplican cada habilidad. Si un subsistema no us
 | **S8 — Filtrado digital, oversampling, triggers** | ✅ Reducción de ruido en sensores de distancia y Hall mediante media móvil, IIR u oversampling. | ✅ Señales filtradas antes del PID para evitar correcciones debidas al ruido. | ✅ Triggers de seguridad: si el error supera un umbral, se apagan las bobinas. |
 | **S9 — DAC MCP4725, FSM, generación de señales** | ✅ Setpoint variable como señal de referencia; comandos cambian el modo del sistema. | ✅ Máquina de estados finita: `OFF`, `CALIBRATING`, `READY`, `LEVITATING`, `UNSTABLE`, `FAULT`. | |
 
+HABILIDADES NECESARIAS EN LA IMPLEMENTACIÓN DEL CODIGO VISTAS EN CLASE 
 
+La primera es PWM y control de actuadores. Sin lab-05, no se tendría la base para entender cómo una señal digital del Arduino puede controlar potencia promedio en una carga física. En levitación esto es indispensable porque la fuerza magnética depende de la corriente de las bobinas, y esa corriente debe regularse mediante MOSFETs controlados por PWM. La práctica 5 muestra justamente la relación entre duty cycle y potencia entregada a un actuador.
+
+La segunda es control en lazo cerrado + parser serial no bloqueante. Sin lab-07 y lab-04, sería muy difícil implementar algo como: leer altura, calcular error, corregir PWM, recibir un nuevo setpoint por Serial y seguir funcionando sin detener el lazo. La práctica 7 introduce setpoint, error y PWM en control automático, y la práctica 4 muestra por qué el sistema no debe bloquearse con delay() si se espera responder a comandos mientras opera.
 
 > Si el proyecto completo usa menos de 4 habilidades distintas del curso, probablemente es demasiado simple. Pero no inflen la matriz: solo marquen las habilidades que REALMENTE usan.
 
