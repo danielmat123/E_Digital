@@ -100,11 +100,17 @@ Marquen con ✅ y describan cómo aplican cada habilidad. Si un subsistema no us
 | **S8 — Filtrado digital, oversampling, triggers** | ✅ Reducción de ruido en sensores de distancia y Hall mediante media móvil, IIR u oversampling. | ✅ Señales filtradas antes del PID para evitar correcciones debidas al ruido. | ✅ Triggers de seguridad: si el error supera un umbral, se apagan las bobinas. |
 | **S9 — DAC MCP4725, FSM, generación de señales** | ✅ Setpoint variable como señal de referencia; comandos cambian el modo del sistema. | ✅ Máquina de estados finita: `OFF`, `CALIBRATING`, `READY`, `LEVITATING`, `UNSTABLE`, `FAULT`. | |
 
-HABILIDADES NECESARIAS EN LA IMPLEMENTACIÓN DEL CODIGO VISTAS EN CLASE 
+HABILIDADES VISTAS EN CLASE NECESARIAS EN LA IMPLEMENTACIÓN DEL CODIGO 
 
 La primera es PWM y control de actuadores. Sin lab-05, no se tendría la base para entender cómo una señal digital del Arduino puede controlar potencia promedio en una carga física. En levitación esto es indispensable porque la fuerza magnética depende de la corriente de las bobinas, y esa corriente debe regularse mediante MOSFETs controlados por PWM. La práctica 5 muestra justamente la relación entre duty cycle y potencia entregada a un actuador.
 
 La segunda es control en lazo cerrado + parser serial no bloqueante. Sin lab-07 y lab-04, sería muy difícil implementar algo como: leer altura, calcular error, corregir PWM, recibir un nuevo setpoint por Serial y seguir funcionando sin detener el lazo. La práctica 7 introduce setpoint, error y PWM en control automático, y la práctica 4 muestra por qué el sistema no debe bloquearse con delay() si se espera responder a comandos mientras opera.
+
+HABILIDADES NO VISTAS EN CLASE NECESARIAS EN LA IMPLEMENTACIÓN DEL CODIGO
+
+La primera es electrónica de potencia real para bobinas. Las prácticas usan LEDs, motor DC o L298N, pero aqui se requiere MOSFETs adecuados, diodos flyback, protección contra picos inductivos, disipación térmica, fuente de corriente suficiente y posiblemente medición de corriente. Una bobina no se comporta como un LED: almacena energía magnética y puede generar picos peligrosos al apagarla.
+
+La segunda es control multivariable y estabilidad real de levitación magnética. En las prácticas se controló básicamente una variable: temperatura o velocidad. Aqui se varia la altura y existen desviaciones laterales. Además, la levitación magnética depende de gradientes de campo, retardo de sensores, saturación de bobinas, ruido, límite de corriente y acoplamientos entre ejes. Por eso conviene hacer calibración, límites de seguridad, filtrado y apagado automático si el imán se sale del rango.
 
 > Si el proyecto completo usa menos de 4 habilidades distintas del curso, probablemente es demasiado simple. Pero no inflen la matriz: solo marquen las habilidades que REALMENTE usan.
 
