@@ -38,37 +38,7 @@ En síntesis, vamos a construir un prototipo interactivo de control electromagn�
 
 ## 2. Solución Propuesta — Diagrama de Bloques
 
-**¿Cómo resuelven el problema con el toolkit del curso?**
-
-Dibujen un diagrama de bloques del sistema completo. Cada bloque debe ser un subsistema identificable con su función específica.
-
-La arquitectura depende del tipo de proyecto. Algunos ejemplos:
-
-**Tipo A — Instrumento de medición / automatización:**
-```
-┌──────────┐    ┌──────────┐    ┌──────────┐
-│ SENSORES │ →  │ ARDUINO  │ →  │ACTUADORES│
-└──────────┘    └──────────┘    └──────────┘
-                      │
-               ┌──────┴──────┐
-               │  DISPLAY /  │
-               │  PC / LOG   │
-               └─────────────┘
-```
-
-**Tipo B — Dispositivo interactivo (instrumento musical, juego, controlador):**
-```
-┌──────────┐    ┌──────────┐    ┌──────────┐
-│ ENTRADAS │ →  │ ARDUINO  │ →  │  SALIDAS │
-│(botones, │    │(FSM,     │    │(sonido,  │
-│ potenció-│    │ lógica)  │    │ LEDs,    │
-│ metros)  │    │          │    │ display) │
-└──────────┘    └──────────┘    └──────────┘
-```
-
-*Elijan la arquitectura que corresponda a su proyecto o dibujen una propia. Identifiquen cada bloque con su función específica. Si su proyecto usa comunicación serial con Python (S4), agreguen el bloque PC/LOG.*
-
----
+![Diagrama Levitacion](Imagenes/Diagrama_levitacion.png)
 
 ## 3. Matriz de Trazabilidad — Toolkit del Curso
 
