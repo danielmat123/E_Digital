@@ -3,11 +3,11 @@
 **Grupo #:** ___  
 **Integrantes:**  
 1. Daniel Mateo González Sánchez  
-2. ___  
-3. ___  
-4. ___  
+2. Andres Felipe Polanco Olaya
+3. Juan Sebastian Baquero Pinzon   
+4. Juan Felipe Sanchez Poveda
 
-**Fecha de entrega:** ___
+**Fecha de entrega:** 03/06/26
 
 ---
 
