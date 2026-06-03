@@ -247,7 +247,14 @@ void loop() {
 - ¿Qué subsistemas estarán funcionando?
 - ¿Qué evidencia van a mostrar? (demo en vivo, datos, gráficas)
   
-La operación en vivo del sistema, acorde con cada una de las entregas.
+En cada entregable estarán funcionando todos los subsistemas (sensor, procesamiento y actuador), únicamente variando la escala y complejidad en la que operan.
+
+Evidencia para el primer entregable: Demostración en vivo de la levitación del imán.
+
+Evidencia para el segundo entregable: Demostración en vivo del control del movimiento vertical del imán.
+
+Evidencia para el tercer entregable: Demostración en vivo del control del movimiento vertical y horizontal del imán.
+
 
 - **Pre-requisitos:** ¿Qué debe estar listo ANTES de empezar este entregable?
 
