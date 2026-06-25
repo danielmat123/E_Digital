@@ -53,38 +53,47 @@ No se encontraron en `Inputs` capturas separadas de frecuencia mínima y máxima
 
 #### Tabla 1 — Datos I-V de muestra
 
-Incluya las primeras 10 filas y las últimas 10 filas de uno de sus archivos CSV.
-Las últimas 10 filas deben incluir la fila con el valor máximo de V_DAC (5.00 V).
+El archivo `Inputs/LAB 09.xlsx` contiene una hoja por color de LED: `VERDE`, `BLANCO`, `AZUL`, `ROJO` y `YELLOW`. Para la tabla de muestra se usa la hoja `ROJO`, con 512 filas de barrido. El último registro corresponde al máximo `V_DAC` medido en la hoja (`4.9915 V`, equivalente práctico del extremo de 5 V del barrido).
 
-**Primeras 10 filas:**
-
-| V_DAC (V) | V_A1 (V) | V_LED (V) | I (mA) |
-|:---------:|:--------:|:---------:|:------:|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-
-**Últimas 10 filas:**
+**Primeras 10 filas — LED rojo:**
 
 | V_DAC (V) | V_A1 (V) | V_LED (V) | I (mA) |
 |:---------:|:--------:|:---------:|:------:|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-| | | | |
+| 0 | 0 | 0 | 0 |
+| 0.0098 | 0 | 0.0098 | 0 |
+| 0.0195 | 0 | 0.0195 | 0 |
+| 0.0293 | 0 | 0.0293 | 0 |
+| 0.0391 | 0 | 0.0391 | 0 |
+| 0.0488 | 0 | 0.0488 | 0 |
+| 0.0586 | 0 | 0.0586 | 0 |
+| 0.0684 | 0.0147 | 0.0537 | 0.0666 |
+| 0.0781 | 0 | 0.0781 | 0 |
+| 0.0879 | 0.0244 | 0.0635 | 0.1111 |
+
+**Últimas 10 filas — LED rojo:**
+
+| V_DAC (V) | V_A1 (V) | V_LED (V) | I (mA) |
+|:---------:|:--------:|:---------:|:------:|
+| 4.9035 | 2.4682 | 2.4353 | 11.2192 |
+| 4.9133 | 2.4927 | 2.4206 | 11.3303 |
+| 4.9231 | 2.478 | 2.4451 | 11.2637 |
+| 4.9328 | 2.4829 | 2.45 | 11.2859 |
+| 4.9426 | 2.4878 | 2.4548 | 11.3081 |
+| 4.9524 | 2.4389 | 2.5135 | 11.0859 |
+| 4.9621 | 2.4878 | 2.4744 | 11.3081 |
+| 4.9719 | 2.4927 | 2.4792 | 11.3303 |
+| 4.9817 | 2.4927 | 2.489 | 11.3303 |
+| 4.9915 | 2.4878 | 2.5037 | 11.3081 |
+
+**Resumen por color:**
+
+| LED | Muestras | V_LED a I >= 1 mA (V) | V_LED a I >= 5 mA (V) | I máx. (mA) | V_LED en I máx. (V) |
+|:----|:--------:|:----------------------:|:----------------------:|:-----------:|:--------------------:|
+| Rojo | 512 | 1.82 | 1.95 | 11.33 | 2.10 |
+| Amarillo | 512 | 2.11 | 2.22 | 10.35 | 2.43 |
+| Verde | 512 | 2.49 | 2.74 | 8.26 | 2.91 |
+| Azul | 512 | 2.67 | 2.82 | 8.24 | 2.91 |
+| Blanco | 512 | 2.69 | 2.86 | 8.13 | 3.09 |
 
 #### Captura: Estados de la FSM en el OLED
 
@@ -98,27 +107,45 @@ Se adjunta la evidencia disponible del OLED durante la operación del Reto 2. En
 
 ### Gráfica 1 — Curva I-V del LED rojo
 
-Graficar todos los datos del barrido completo del LED rojo (≥ 50 filas del CSV).
+Se graficaron las 512 muestras de la hoja `ROJO` del archivo `Inputs/LAB 09.xlsx`.
 
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
 
+![Curva I-V LED rojo](imagenes/grafica-1-iv-rojo.png)
+
 **Interpretación:**
 
-> Pendiente: en `Inputs` no se encontró el CSV completo del barrido I-V del LED rojo ni la gráfica correspondiente. Cuando se agregue el archivo, se debe identificar el punto donde la corriente empieza a crecer rápidamente y estimar el voltaje umbral.
+> La curva I-V del LED rojo presenta la forma esperada de una unión p-n: la corriente permanece casi nula hasta aproximadamente `V_LED = 1.82 V`, tomando como referencia el primer punto con `I >= 1 mA`. Después de ese umbral, incrementos pequeños de tensión producen aumentos fuertes de corriente. La corriente máxima medida fue cercana a `11.33 mA`, con `V_LED` alrededor de `2.10 V` en el punto de mayor corriente.
+
 
 ---
 
-### Gráfica 2 — Comparación I-V: LED rojo vs LED verde
+### Gráfica 2 — Comparación I-V: LEDs medidos
 
-Superponer las curvas I-V del LED rojo y del LED verde en un mismo gráfico.
+Se superpusieron las curvas I-V de las cinco hojas del archivo `Inputs/LAB 09.xlsx`: rojo, amarillo, verde, azul y blanco.
 
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
 
+![Comparación I-V de LEDs](imagenes/grafica-2-iv-comparacion.png)
+
 **Interpretación:**
 
-> Pendiente: falta el CSV o la gráfica comparativa del LED rojo y verde. Con esos datos se deben estimar los umbrales de cada color y explicar que el LED verde requiere mayor voltaje por su mayor energía de fotón y bandgap.
+> Las curvas muestran que el LED rojo conduce a menor tensión que los demás colores: supera `1 mA` cerca de `1.82 V`. El amarillo queda en una zona intermedia (`2.11 V`) y los LEDs verde, azul y blanco requieren tensiones mayores, entre `2.49 V` y `2.69 V` para alcanzar `1 mA`. Esto es coherente con la energía de fotón y el bandgap: colores de menor longitud de onda suelen requerir mayor voltaje directo.
+
+---
+
+### Gráfica 3 — Umbral aproximado por color
+
+La gráfica resume el primer punto de cada barrido donde la corriente alcanza o supera `1 mA`.
+
+![Umbral aproximado por color](imagenes/grafica-3-umbrales-leds.png)
+
+**Interpretación:**
+
+> El orden experimental de umbral fue `rojo < amarillo < verde < azul ≈ blanco`. Esta comparación permite estimar de manera rápida qué LED requiere mayor tensión directa para entrar en conducción visible/medible. El criterio de `1 mA` es operativo: no representa un umbral físico absoluto, sino un punto de comparación consistente entre las cinco mediciones.
+
 
 ---
 
@@ -136,7 +163,7 @@ obtener 1 Hz? ¿Y para 15 Hz?
 **Pregunta 2 (Reto 2):** ¿Por qué la corriente no crece linealmente con el voltaje
 en el LED? Relacione la forma de la curva I-V con el modelo físico de una unión p-n.
 
-> La corriente del LED no crece linealmente porque una unión p-n sigue una relación exponencial entre corriente y voltaje. Por debajo del voltaje umbral, la corriente es muy pequeña; al superar la barrera de potencial, pequeños aumentos de voltaje producen incrementos grandes de corriente. Por eso la curva I-V del LED tiene una región casi plana y luego una subida pronunciada.
+> La corriente del LED no crece linealmente porque una unión p-n sigue una relación aproximadamente exponencial entre corriente y voltaje directo. En los datos medidos se observa una región inicial casi plana y luego una subida abrupta: por ejemplo, el LED rojo supera `1 mA` cerca de `1.82 V`, mientras que verde, azul y blanco requieren más voltaje para alcanzar el mismo nivel. Ese comportamiento aparece porque al superar la barrera de potencial de la unión, pequeños aumentos de voltaje inyectan muchos más portadores y la corriente crece rápidamente.
 
 ---
 
@@ -195,10 +222,10 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 
 ### Dificultad 2
 
-- **Síntoma observado:** No fue posible construir las curvas I-V.
-- **Causa identificada:** No se encontró el CSV del barrido de LEDs rojo/verde.
-- **Solución aplicada:** Se dejó pendiente explícito en las secciones de tabla y visualización.
-- **Lección aprendida:** Para análisis de curvas, el CSV crudo es tan importante como la foto del montaje.
+- **Síntoma observado:** El archivo de Lab 09 trae los datos separados por hojas de color, por lo que la comparación no estaba lista directamente en el template.
+- **Causa identificada:** Cada hoja (`VERDE`, `BLANCO`, `AZUL`, `ROJO`, `YELLOW`) contiene su propio barrido I-V con 512 muestras.
+- **Solución aplicada:** Se consolidaron las hojas, se calculó el umbral operativo de cada color con el criterio `I >= 1 mA` y se generaron las curvas I-V individual/comparativa.
+- **Lección aprendida:** Para comparar LEDs, conviene mantener una misma estructura de columnas por color y documentar el criterio de umbral usado.
 
 ---
 
