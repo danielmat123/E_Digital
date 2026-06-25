@@ -10,12 +10,12 @@
 
 | Campo | |
 |-------|--|
-| **Integrantes** | 1. |
-| | 2. |
-| | 3. |
-| | 4. |
+| **Integrantes** | 1. Andres Felipe Polanco Olaya |
+| | 2. Juan Felipe Sanchez Poveda |
+| | 3. Daniel Mateo Gonzales Sánchez |
+| | 4. Juan Sebastian Baquero Pinzon |
 | | 5. |
-| **Grupo** | |
+| **Grupo** | 4 |
 | **Fecha de la práctica** | Miércoles 22 de Abril, 2026 |
 | **Fecha de entrega** | Viernes 25 de Abril, 2026 |
 
@@ -27,14 +27,13 @@
 
 #### Captura 1: Forma de onda periódica
 
-Coloque aquí una captura del osciloscopio mostrando una forma de onda periódica
-(diente de sierra, triangular o senoidal) con amplitud ~0–5 V.
+Se adjunta una captura del osciloscopio con una forma de onda periódica tipo diente de sierra generada con el DAC.
 
 ![Captura — Forma de onda periódica](imagenes/reto-1-onda-periodica.png)
 
 #### Capturas 2–4: Tres formas de onda
 
-Coloque aquí tres capturas del osciloscopio, una por cada forma de onda implementada.
+Se adjuntan las capturas disponibles en `Inputs`: diente de sierra y triangular. No se encontró una captura separada de la señal senoidal en los archivos suministrados.
 
 ![Diente de sierra](imagenes/reto-1-diente-sierra.png)
 
@@ -44,8 +43,7 @@ Coloque aquí tres capturas del osciloscopio, una por cada forma de onda impleme
 
 #### Captura 5: Control de frecuencia
 
-Coloque aquí dos capturas del osciloscopio mostrando las dos condiciones extremas
-del potenciómetro: frecuencia mínima (~0.5 Hz) y frecuencia máxima (~15 Hz).
+No se encontraron en `Inputs` capturas separadas de frecuencia mínima y máxima; esta evidencia queda pendiente.
 
 ![Frecuencia mínima](imagenes/reto-1-freq-min.png)
 
@@ -92,8 +90,7 @@ Las últimas 10 filas deben incluir la fila con el valor máximo de V_DAC (5.00 
 
 #### Captura: Estados de la FSM en el OLED
 
-Coloque aquí una foto del OLED mostrando cada uno de los tres estados de la FSM
-(ESPERA, SUBIDA, COMPLETADO) durante la operación del Reto 2.
+Se adjunta la evidencia disponible del OLED durante la operación del Reto 2. En la foto se observa el estado `SUBIDA` y el avance del barrido.
 
 ![OLED — Estados de la FSM](imagenes/reto-2-oled-fsm.png)
 
@@ -112,9 +109,7 @@ Graficar todos los datos del barrido completo del LED rojo (≥ 50 filas del CSV
 
 **Interpretación:**
 
-> [Identifique el voltaje umbral (V_th) donde la corriente comienza a crecer
-> apreciablemente. Describa la forma de la curva y por qué es consistente con
-> el comportamiento exponencial de una unión p-n.]
+> Pendiente: en `Inputs` no se encontró el CSV completo del barrido I-V del LED rojo ni la gráfica correspondiente. Cuando se agregue el archivo, se debe identificar el punto donde la corriente empieza a crecer rápidamente y estimar el voltaje umbral.
 
 ---
 
@@ -129,9 +124,7 @@ Superponer las curvas I-V del LED rojo y del LED verde en un mismo gráfico.
 
 **Interpretación:**
 
-> [Identifique los voltajes umbral (V_th) para cada color (~1.8 V rojo, ~2.1 V
-> verde). Explique por qué la diferencia de voltaje umbral es consistente con
-> la relación entre el color (longitud de onda) y el bandgap del semiconductor.]
+> Pendiente: falta el CSV o la gráfica comparativa del LED rojo y verde. Con esos datos se deben estimar los umbrales de cada color y explicar que el LED verde requiere mayor voltaje por su mayor energía de fotón y bandgap.
 
 ---
 
@@ -142,14 +135,14 @@ senoidal con el número de puntos N de la LUT y el tiempo entre puntos controlad
 por el potenciómetro. Con N = 64, ¿cuál es el tiempo entre puntos necesario para
 obtener 1 Hz? ¿Y para 15 Hz?
 
-> [Respuesta aquí]
+> Para una LUT de N puntos, una vuelta completa de la señal tarda `T = N * Δt`, donde `Δt` es el tiempo entre puntos. Por tanto, `f = 1 / (N * Δt)` y `Δt = 1 / (N*f)`. Con N=64, para 1 Hz se necesita `Δt = 1/(64*1) = 0.015625 s = 15.625 ms`. Para 15 Hz se necesita `Δt = 1/(64*15) = 0.0010417 s = 1.04 ms`.
 
 ---
 
 **Pregunta 2 (Reto 2):** ¿Por qué la corriente no crece linealmente con el voltaje
 en el LED? Relacione la forma de la curva I-V con el modelo físico de una unión p-n.
 
-> [Respuesta aquí]
+> La corriente del LED no crece linealmente porque una unión p-n sigue una relación exponencial entre corriente y voltaje. Por debajo del voltaje umbral, la corriente es muy pequeña; al superar la barrera de potencial, pequeños aumentos de voltaje producen incrementos grandes de corriente. Por eso la curva I-V del LED tiene una región casi plana y luego una subida pronunciada.
 
 ---
 
@@ -159,7 +152,7 @@ precalculada (senoidal). ¿En qué situaciones es preferible una LUT sobre un c�
 en tiempo real, y viceversa? Fundamente con base en la precisión temporal, el uso
 de memoria y la flexibilidad de cambiar parámetros.
 
-> [Respuesta aquí]
+> El barrido lineal es simple para diente de sierra y triangular porque basta incrementar o decrementar el valor del DAC en pasos regulares. La LUT es preferible para señales como la senoidal, donde calcular `sin()` en tiempo real puede ser costoso y producir jitter temporal. La LUT usa más memoria, pero mejora la regularidad del tiempo entre puntos. El cálculo en tiempo real es más flexible si se quieren cambiar forma, amplitud o parámetros sin almacenar tablas.
 
 ---
 
@@ -168,7 +161,7 @@ mientras que ESPERA → SUBIDA y FIN → ESPERA dependen del botón. ¿Qué prop
 la FSM demuestra esta diferencia en los tipos de transición? ¿Cómo se modificaría
 el diseño si todas las transiciones dependieran del botón — qué funcionalidad se perdería?
 
-> [Respuesta aquí]
+> La FSM demuestra que pueden coexistir transiciones por evento externo y transiciones automáticas por condición interna. `ESPERA -> SUBIDA` depende del botón, pero `SUBIDA -> FIN` ocurre cuando el barrido llega a `DAC == 4095`. Si todas las transiciones dependieran del botón, se perdería la automatización del barrido y el usuario tendría que detener manualmente la medición, aumentando errores y haciendo menos reproducible la curva I-V.
 
 ---
 
@@ -180,20 +173,19 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 ### Reto 1 — Generador de Señales (lab-09-generacion-senales.ino)
 
 ```cpp
-// Pegar aquí el código final del generador, con comentarios explicando:
-//   - Cómo se implementó cada forma de onda
-//   - Cómo funciona la FSM de selección
-//   - Cómo se conecta el potenciómetro al control de frecuencia
+// Pendiente: no se encontro en Inputs el sketch final del generador.
+// Debe agregarse aqui el codigo de Reto 1 con:
+// - implementacion de diente de sierra, triangular y senoidal por LUT,
+// - seleccion de modo por FSM,
+// - lectura del potenciometro para controlar la frecuencia.
 ```
 
 ### Reto 2 — Caracterización I-V con FSM (lab-09-iv-led.ino)
 
 ```cpp
-// Pegar aquí el código completo del Reto 2, con comentarios explicando:
-//   - La lógica de cada estado de la FSM
-//   - Las condiciones de transición entre estados
-//   - El cálculo de V_DAC, V_A1, V_LED e I
-//   - El formato de salida CSV
+// Pendiente: no se encontro en Inputs el sketch final del Reto 2.
+// Debe agregarse aqui el codigo de la FSM con estados ESPERA, SUBIDA y COMPLETADO,
+// el calculo de V_DAC, V_A1, V_LED e I, y la salida CSV del barrido.
 ```
 
 ---
@@ -202,17 +194,17 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 
 ### Dificultad 1
 
-- **Síntoma observado:**
-- **Causa identificada:**
-- **Solución aplicada:**
-- **Lección aprendida:**
+- **Síntoma observado:** No se cuenta aún con todos los archivos de evidencia del Reto 1.
+- **Causa identificada:** En `Inputs` solo aparecen capturas de diente de sierra y triangular, pero no la senoidal ni las frecuencias extremas.
+- **Solución aplicada:** Se añadieron las capturas disponibles y se dejó indicado qué evidencia falta.
+- **Lección aprendida:** Conviene nombrar las capturas por reto y condición experimental al momento de tomarlas.
 
 ### Dificultad 2
 
-- **Síntoma observado:**
-- **Causa identificada:**
-- **Solución aplicada:**
-- **Lección aprendida:**
+- **Síntoma observado:** No fue posible construir las curvas I-V.
+- **Causa identificada:** No se encontró el CSV del barrido de LEDs rojo/verde.
+- **Solución aplicada:** Se dejó pendiente explícito en las secciones de tabla y visualización.
+- **Lección aprendida:** Para análisis de curvas, el CSV crudo es tan importante como la foto del montaje.
 
 ---
 
@@ -225,4 +217,4 @@ medir la respuesta I-V resultante sin necesidad de un barrido por software paso 
 paso. Describa qué modificaciones requerirían el hardware y el código, y qué ventaja
 ofrecería este enfoque frente a la implementación actual.
 
-> [Respuesta aquí]
+> Una extensión sería usar una señal triangular del DAC como excitación continua para el LED y medir simultáneamente el voltaje en la resistencia de sensado con el ADC. En hardware se mantendría una resistencia en serie para calcular corriente y se conectaría el nodo del LED a una entrada analógica. En código, el generador actualizaría el DAC y, en cada punto, registraría `V_DAC`, `V_A1`, `V_LED` e `I`. La ventaja es obtener una curva I-V más rápida y continua, sin depender de un barrido paso a paso controlado por estados largos.

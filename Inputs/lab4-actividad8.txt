@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+"""
+cliente_menu.py
+Laboratorio 4 — Parte 4, Actividad 8: Cliente con menú humanizado (RETO)
+
+PROPÓSITO PEDAGÓGICO:
+    Este scaffolding muestra la ESTRUCTURA del cliente con menú.
+    La estructura if/elif ya está escrita con los 5 opciones.
+    El estudiante debe implementar la lógica de cada opción:
+      (a) componer la trama de formato fijo correcta
+      (b) enviarla al Arduino
+      (c) leer la respuesta cruda
+      (d) interpretar la respuesta y mostrarla en lenguaje humano
+
+    Al terminar, el usuario del programa nunca verá "ST 00000" ni "OK 10100".
+    Solo verá mensajes como "LED: encendido | Botón: presionado | Eventos: 3"
+
+    Esto demuestra la SEPARACIÓN DE CAPAS:
+      - Capa de transporte: protocolo compacto Arduino ↔ Python
+      - Capa de presentación: texto legible para el usuario
+
+INSTRUCCIONES:
+    1. Cierra el Monitor Serial del Arduino IDE antes de ejecutar.
+    2. Verifica el puerto serial en la variable PUERTO_SERIAL.
+    3. Ejecuta: python3 cliente_menu.py
+    4. Implementa las funciones marcadas con TODO.
+
+REFERENCIA:
+    terminal_crudo.py muestra cómo abrir el puerto y enviar/recibir.
+    La capa de transporte es la misma — solo cambia la presentación.
+"""
+
+import serial   # pip install pyserial
+import time
+
+
+# =============================================================
+# CONFIGURACIÓN — ajusta PUERTO_SERIAL si es necesario
+# =============================================================
+PUERTO_SERIAL = "COM8"   # <-- verificar y corregir si es diferente
+BAUDRATE      = 9600
+TIMEOUT_S     = 2
+
+
+# =============================================================
+# FUNCIONES AUXILIARES
+# =============================================================
+
+def enviar_y_recibir(puerto, trama):
+    """
+    Envía una trama al Arduino y devuelve la respuesta cruda.
+    Parámetros:
+        puerto — objeto serial.Serial abierto
+        trama  — string en formato compacto, ej: "ST 00000"
+    Devuelve:
+        string con la respuesta cruda del Arduino, ej: "OK 10100"
+    """
+    puerto.write((trama + "\n").encode("utf-8"))
+    respuesta = puerto.readline().decode("utf-8", errors="replace").strip()
+    return respuesta
+
+
+def mostrar_menu():
+    """Muestra las opciones disponibles al usuario."""
+    print("\n--- MENÚ ---")
+    print("  1. Ver estado del sistema")
+    print("  2. Encender LED")
+    print("  3. Apagar LED")
+    print("  4. Parpadear LED")
+    print("  5. Ver eventos del botón")
+    print("  0. Salir")
+    print("------------")
+
+
+# =============================================================
+# PROGRAMA PRINCIPAL
+# =============================================================
+def main():
+    # Abrir puerto serial
+    try:
+        puerto = serial.Serial(PUERTO_SERIAL, BAUDRATE, timeout=TIMEOUT_S)
+    except serial.SerialException as e:
+        print(f"Error: no se pudo abrir {PUERTO_SERIAL}")
+        print(f"Detalle: {e}")
+        return
+
+    print(f"Conectado a {PUERTO_SERIAL}")
+    time.sleep(2)
+    while puerto.in_waiting > 0:
+        puerto.readline()  # Descartar bienvenida del Arduino
+
+    # Bucle del menú
+    while True:
+        mostrar_menu()
+        opcion = input("Opción > ").strip()
+
+        # ---------------------------------------------------------
+        # OPCIÓN 1: Ver estado
+        # ---------------------------------------------------------
+        if opcion == "1":
+            response = enviar_y_recibir(PUERTO_SERIAL, "ST 00000")
+            print(response)
+            # TODO:
+            # 1. Componer la trama: "ST 00000"
+            # 2. Enviar con enviar_y_recibir()
+            # 3. La respuesta tiene formato: "OK L=X B=X E=N"
+            #    donde X es 0 o 1, y N es el contador de eventos.
+            #    Interpreta cada campo y muestra texto legible al usuario.
+            #    Ejemplo de salida esperada:
+            #      "LED: encendido | Botón: libre | Eventos registrados: 3"
+            print("TODO: implementar opción 1")
+
+        # ---------------------------------------------------------
+        # OPCIÓN 2: Encender LED
+        # ---------------------------------------------------------
+        elif opcion == "2":
+            response = enviar_y_recibir(PUERTO_SERIAL, "ON 00000")
+            print(response)
+            # TODO:
+            # 1. Componer la trama: "ON 00000"
+            # 2. Enviar con enviar_y_recibir()
+            # 3. Mostrar confirmación legible si la respuesta es "OK 00000"
+            print("TODO: implementar opción 2")
+
+        # ---------------------------------------------------------
+        # OPCIÓN 3: Apagar LED
+        # ---------------------------------------------------------
+        elif opcion == "3":
+            response = enviar_y_recibir(PUERTO_SERIAL, "OF 00000")
+            print(response)
+            # TODO:
+            # 1. Componer la trama: "OF 00000"
+            # 2. Enviar con enviar_y_recibir()
+            # 3. Mostrar confirmación legible
+            print("TODO: implementar opción 3")
+
+        # ---------------------------------------------------------
+        # OPCIÓN 4: Parpadear LED
+        # ---------------------------------------------------------
+        elif opcion == "4":
+            n= input("¿Cuántos parpadeos? (1-50) > ").strip()
+            n = int(n)
+            response = enviar_y_recibir(PUERTO_SERIAL, "BL " + str(n).zfill(5))
+            print(response)
+            # TODO:
+            # 1. Pedir al usuario cuántos parpadeos quiere (input())
+            # 2. Validar que sea un número entre 1 y 50
+            # 3. Formatear el parámetro con 5 dígitos (zero-padding):
+            #    n = 5 → "00005"   n = 12 → "00012"
+            #    Pista: str(n).zfill(5)
+            # 4. Componer la trama: "BL " + parametro_formateado
+            # 5. Enviar y mostrar confirmación legible
+            print("TODO: implementar opción 4")
+
+        # ---------------------------------------------------------
+        # OPCIÓN 5: Ver eventos del botón
+        # ---------------------------------------------------------
+        elif opcion == "5":
+            response = enviar_y_recibir(PUERTO_SERIAL, "EV 00001")
+            print(response)
+            # TODO:
+            # 1. Componer la trama: "EV 00001"
+            # 2. Enviar con enviar_y_recibir()
+            # 3. La respuesta tiene formato: "OK NNNNN"
+            #    Extraer el número y mostrarlo en lenguaje humano.
+            #    Ejemplo: "El botón se ha presionado 7 veces."
+            print("TODO: implementar opción 5")
+
+        # ---------------------------------------------------------
+        # OPCIÓN 0: Salir
+        # ---------------------------------------------------------
+        elif opcion == "0":
+            break
+
+        else:
+            print("Opción no reconocida. Escribe un número del 0 al 5.")
+
+    puerto.close()
+    print("Hasta luego.")
+
+
+if __name__ == "__main__":
+    main()

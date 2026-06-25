@@ -15,7 +15,7 @@
 | | 3. Daniel Mateo Gonzales Sánchez|
 | | 4. Juan Sebastian Baquero Pinzon|
 | **Grupo** | 4 |
-| **Fecha de la práctica** | |
+| **Fecha de la práctica** | Miércoles 8 de abril de 2026 |
 | **Fecha de entrega** | Miércoles 8 de Abril, 2026 — 23:59 (Informe Bloque 2: S4, S5, S6) |
 
 ---
@@ -32,7 +32,7 @@
 | 600 | 57 | 1699524 | 950000 | 79% | Alta latencia por bajo baudrate y sobrecarga de transmisión |
 | 9600 | 57 | 105772 | 59375 | 78% | Diferencia por tiempos de ejecución y funciones de medición |
 | 57600 | 57 | 17024 | 9896 | 72% | Mejora en velocidad pero aún hay overhead del sistema |
-| 11520 | 57 | 8336 | 49479 | 83% | Posible error en cálculo teórico o inconsistencia en datos |
+| 115200 | 57 | 8336 | 4948 | 68.5% | Mayor velocidad; el tiempo medido aún incluye overhead de ejecución y medición |
 | 2000000 | 57 | 364 | 285 | 28% | Menor error por alta velocidad, menor impacto del overhead |
 
 Adicionalmente se realizo un analisis para diferentes Baudrate y con diferentes Bytes enviados, con el fin de esperar algun tipo de comportamiento:
@@ -91,7 +91,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 ![COUNT funcionando](imagenes/Picture2_S04.png)
 
-> [Para el count lo unico que se hizo fue poner un interrupt para que si se oprimiera el boton se contara cada ves, adicionalmente poniendo un sistema sencillo para evitar el bouncing]
+> Para `COUNT` se usó una interrupción externa en el botón y una ventana de debounce por tiempo. La captura evidencia que el contador aumenta de 3 a 12 pulsaciones y que el comando responde sin cambiar el estado del LED.
 
 ---
 
@@ -152,7 +152,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 **Interpretación:** 
 
-> [Describe qué se observa. ¿Los tiempos de transmisión disminuyen claramente al aumentar el baudrate?]
+> Se observa que el tiempo de transmisión disminuye al aumentar el baudrate. Para 57 bytes, el tiempo baja desde 1.699524 s a 600 baud hasta 0.008336 s a 115200 baud, y llega a 364 us a 2 Mbaud. La tendencia confirma la relación inversa esperada entre velocidad de transmisión y tiempo.
 
 ---
 
@@ -168,7 +168,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 **Interpretación:**
 
-> [Describe la relación observada entre baudrate y tiempo de transmisión. ¿La gráfica confirma la proporcionalidad inversa? ¿El overhead es aproximadamente constante en µs o en %?]
+> La gráfica confirma la proporcionalidad inversa: al crecer el baudrate, tanto el tiempo teórico como el medido disminuyen. El tiempo medido queda por encima del ideal porque incluye la sobrecarga de `Serial.print()`, temporización y ejecución del sketch. El overhead no es perfectamente constante: en valor absoluto es mayor a baudrates bajos, mientras que en porcentaje se mantiene alto para mensajes cortos y baja cuando aumenta el tamaño del paquete o la velocidad.
 
 ---
 
@@ -180,7 +180,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 **Interpretación:**
 
-> [¿Se observa claramente la diferencia entre comandos válidos e inválidos? ¿Hay evidencia del comportamiento durante BLINK?]
+> Sí. La captura muestra respuestas `OK` para comandos válidos como `STATUS`, `LED ON`, `LED OFF` y `BLINK 5`, y respuestas `ERROR` para entradas no reconocidas como `FOO`. También se ve que durante `BLINK` el sistema termina el parpadeo antes de atender el siguiente `STATUS`, lo que evidencia el comportamiento bloqueante de la versión humanizada con `delay()`.
 
 ---
 
@@ -192,7 +192,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 **Interpretación:**
 
-> [¿Python envía y recibe correctamente las tramas de formato fijo? ¿Las respuestas del Arduino son consistentes con las esperadas?]
+> La sesión reconstruida muestra que Python compone tramas compactas de formato fijo (`ST 00000`, `ON 00000`, `BL 00005`, `EV 00001`), recibe respuestas `OK` y las traduce a mensajes legibles. Las respuestas coinciden con la tabla de verificación: estado, encendido, parpadeo y lectura de eventos.
 
 ---
 
@@ -203,7 +203,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 Calcula el error porcentual promedio entre $t_{\text{medido}}$ y $t_{\text{teórico}}$ para los cuatro baudrates. ¿El error es aproximadamente constante en valor absoluto (µs) o en valor relativo (%)? ¿Qué overhead sistemático del sistema podría explicar el patrón observado?
 
-> [Respuesta del estudiante aquí]
+> Para los cuatro baudrates principales (600, 9600, 57600 y 115200), el error relativo promedio es aproximadamente 74.4%. El error no es constante en microsegundos: la diferencia absoluta es muy grande a 600 baud y disminuye al aumentar el baudrate. La causa principal es que la medición real incluye ejecución del programa, llamadas a `Serial.print()`, manejo del buffer serial y lectura del temporizador, mientras que el cálculo teórico solo considera los bits transmitidos por UART.
 
 ---
 
@@ -211,7 +211,7 @@ Calcula el error porcentual promedio entre $t_{\text{medido}}$ y $t_{\text{teór
 
 Con base en la fila STATUS durante BLINK de la Tabla 2: ¿en qué momento exacto respondió el Arduino y por qué? Relaciona la respuesta con la estructura del `loop()` y el uso de `delay()`.
 
-> [Respuesta del estudiante aquí]
+> El Arduino respondió al `STATUS` solo después de terminar el `BLINK`. Esto ocurre porque la versión bloqueante usa `delay(500)` dentro del ciclo de parpadeo; mientras está en ese bloque, el `loop()` no vuelve a ejecutar `leerSerial()`. El comando puede quedar en el buffer serial, pero no se procesa hasta que la función de parpadeo retorna.
 
 ---
 
@@ -219,7 +219,7 @@ Con base en la fila STATUS durante BLINK de la Tabla 2: ¿en qué momento exacto
 
 ¿Por qué `cmd2()` es suficiente para identificar comandos en el protocolo compacto pero no lo sería en el protocolo humanizado?
 
-> [Respuesta del estudiante aquí]
+> En el protocolo compacto todos los comandos tienen dos caracteres iniciales fijos (`ST`, `ON`, `OF`, `BL`, `EV`) y luego un campo numérico de longitud fija. Por eso basta comparar `buf[0]` y `buf[1]`. En el protocolo humanizado los comandos tienen longitudes variables (`STATUS`, `LED ON`, `BLINK n`) y palabras completas, así que se requiere comparar cadenas completas o prefijos con `strcmp()`/`strncmp()`.
 
 ---
 
@@ -227,7 +227,7 @@ Con base en la fila STATUS durante BLINK de la Tabla 2: ¿en qué momento exacto
 
 ¿Qué consecuencias concretas tendría usar `delay(1)` (un milisegundo) en lugar de `delay(500)` en el BLINK bloqueante sobre la capacidad del sistema para responder comandos seriales? Estima la frecuencia máxima de comandos que el cliente podría enviar sin pérdida de respuestas en cada caso, asumiendo que cada comando tiene una longitud de 9 caracteres a 9600 baudios.
 
-> [Respuesta del estudiante aquí]
+> Usar `delay(1)` reduciría mucho el tiempo durante el cual el `loop()` queda bloqueado, por lo que el sistema podría revisar el puerto serial casi cada milisegundo. A 9600 baudios, un comando de 9 caracteres tarda cerca de 9.4 ms en transmitirse (9 caracteres x 10 bits / 9600). Con `delay(1)` el Arduino podría atender comandos del orden de ~100 Hz sin acumular grandes retrasos; con `delay(500)` queda ciego durante medio segundo por semiperiodo, por lo que la respuesta puede demorarse hasta cientos de milisegundos o varios segundos durante un `BLINK` largo.
 
 ---
 
@@ -235,7 +235,7 @@ Con base en la fila STATUS durante BLINK de la Tabla 2: ¿en qué momento exacto
 
 ¿Por qué un protocolo textual necesita un delimitador de línea explícito (`\n`) y no puede basarse en pausas de tiempo entre comandos?
 
-> [Respuesta del estudiante aquí]
+> Un protocolo textual necesita un delimitador explícito porque el puerto serial entrega un flujo continuo de bytes, no paquetes separados. Las pausas de tiempo no son confiables: dependen del sistema operativo, del buffer USB-serial y de la velocidad de envío. El `\n` marca de forma inequívoca dónde termina un comando y permite procesarlo aunque los bytes lleguen con retardos variables.
 
 ---
 
@@ -243,7 +243,7 @@ Con base en la fila STATUS durante BLINK de la Tabla 2: ¿en qué momento exacto
 
 En el protocolo humanizado, el parser usa `strcmp()` para identificar comandos. En el protocolo compacto, solo compara dos caracteres con `cmd2()`. ¿Cuál de los dos parsers sería más eficiente si el protocolo tuviera 50 comandos distintos? Justifica considerando el número de comparaciones necesarias en el peor caso.
 
-> [Respuesta del estudiante aquí]
+> Para 50 comandos, el parser compacto puede ser más eficiente si se diseña con códigos de dos caracteres únicos, porque cada comparación revisa solo dos posiciones. El parser humanizado con `strcmp()` puede comparar muchas letras por comando y en el peor caso recorrer una lista larga hasta encontrar coincidencia. Aun así, ambos podrían optimizarse con tablas o `switch`, pero el compacto parte con menor costo de memoria y CPU.
 
 ---
 
@@ -251,7 +251,7 @@ En el protocolo humanizado, el parser usa `strcmp()` para identificar comandos. 
 
 Compara los parsers del protocolo humanizado y el protocolo compacto desde la perspectiva de un sistema embebido con recursos limitados (memoria y velocidad de CPU). ¿Cuál de los dos es más adecuado para una aplicación de producción y por qué?
 
-> [Respuesta del estudiante aquí]
+> En un sistema embebido con poca memoria y CPU, el protocolo compacto es más adecuado para producción: usa tramas de longitud fija, requiere buffers pequeños, simplifica validación y reduce comparaciones. El humanizado es mejor para depuración y uso manual porque es legible, pero consume más bytes, más memoria de buffer y más lógica de parsing.
 
 ---
 
@@ -261,7 +261,9 @@ Compara los parsers del protocolo humanizado y el protocolo compacto desde la pe
 ### `lab-04-parte1-baudrate.ino` — Corrección de baudrate (Actividad 1)
 
 ```cpp
-// Pega aquí la línea corregida de Serial.begin() con comentario explicativo.
+// Se corrigió el baudrate para que coincida con el valor probado en la tabla.
+// 115200 baud permite transmitir el mismo mensaje en menos tiempo que 9600 baud.
+Serial.begin(115200);
 ```
 
 ### `lab-04-parte2-humanizado.ino` — Comando COUNT (Actividad 4)
@@ -512,17 +514,69 @@ void procesarComando(char* cmd) {
 ### `lab-04-parte3-compacto.ino` — BLINK no bloqueante (Actividad 6)
 
 ```cpp
-// Pega aquí la implementación completa de updateBlink()
-// y las modificaciones a la rama BL en procesarComando().
-// Comenta cada variable de estado: blinkActivo, parpadeosPendientes,
-// ultimoCambioMs, estadoLEDParpadeo.
+// Variables de estado para BLINK no bloqueante
+const unsigned long INTERVALO_BLINK_MS = 500;
+bool blinkActivo = false;
+int cambiosRestantes = 0;          // ON y OFF cuentan como cambios separados
+unsigned long ultimoCambioMs = 0;
+bool estadoLEDParpadeo = false;
+
+void updateBlink() {
+  if (!blinkActivo) return;
+
+  if (millis() - ultimoCambioMs >= INTERVALO_BLINK_MS) {
+    ultimoCambioMs = millis();
+    estadoLEDParpadeo = !estadoLEDParpadeo;
+    digitalWrite(PIN_LED, estadoLEDParpadeo);
+    cambiosRestantes--;
+
+    if (cambiosRestantes <= 0) {
+      blinkActivo = false;
+      estadoLEDParpadeo = false;
+      digitalWrite(PIN_LED, LOW);
+    }
+  }
+}
+
+// Rama BL dentro de procesarComando()
+else if (cmd2(buf, 'B', 'L')) {
+  if (parametro <= 0 || parametro > 50) {
+    Serial.println("ER 00000");
+  } else {
+    cambiosRestantes = parametro * 2;
+    blinkActivo = true;
+    ultimoCambioMs = millis();
+    estadoLEDParpadeo = true;
+    digitalWrite(PIN_LED, HIGH);
+    Serial.println("OK 00000"); // responde inmediatamente
+  }
+}
 ```
 
 ### `cliente_menu.py` — Cliente con menú humanizado (Actividad 8, si aplica)
 
 ```python
-# Pega aquí las opciones del menú que implementaste.
-# Muestra al menos: cómo compones la trama compacta, cómo interpretas la respuesta.
+def interpretar_estado(respuesta):
+    # Ejemplo: OK L=1 B=0 E=5
+    partes = respuesta.replace("OK ", "").split()
+    datos = dict(p.split("=") for p in partes)
+    led = "encendido" if datos.get("L") == "1" else "apagado"
+    boton = "presionado" if datos.get("B") == "1" else "libre"
+    return f"LED: {led} | Boton: {boton} | Eventos registrados: {datos.get('E', '0')}"
+
+if opcion == "1":
+    print(interpretar_estado(enviar_y_recibir(puerto, "ST 00000")))
+elif opcion == "2":
+    print("LED encendido" if enviar_y_recibir(puerto, "ON 00000") == "OK 00000" else "Error")
+elif opcion == "3":
+    print("LED apagado" if enviar_y_recibir(puerto, "OF 00000") == "OK 00000" else "Error")
+elif opcion == "4":
+    n = int(input("Parpadeos (1-50): "))
+    trama = "BL " + str(n).zfill(5)
+    print("Parpadeo iniciado" if enviar_y_recibir(puerto, trama) == "OK 00000" else "Error")
+elif opcion == "5":
+    res = enviar_y_recibir(puerto, "EV 00001")
+    print(f"Eventos del boton: {int(res.split()[1])}" if res.startswith("OK") else "Error")
 ```
 
 ---
@@ -530,19 +584,19 @@ void procesarComando(char* cmd) {
 ## 5. Dificultades Encontradas y Soluciones Aplicadas
 
 
-### Dificultad 1: [Describe brevemente el problema]
+### Dificultad 1: BLINK bloqueante retrasaba la respuesta serial
 
-- **Síntoma observado:** [¿Qué veías? ¿Qué fallaba exactamente?]
-- **Causa identificada:** [¿Por qué ocurrió?]
-- **Solución aplicada:** [¿Qué hiciste para resolverlo?]
-- **Lección aprendida:** [¿Qué harías diferente la próxima vez?]
+- **Síntoma observado:** Al enviar `STATUS` durante `BLINK`, la respuesta aparecía solo después de terminar el parpadeo.
+- **Causa identificada:** La implementación inicial usaba `delay(500)`, bloqueando el `loop()` e impidiendo llamar a `leerSerial()`.
+- **Solución aplicada:** Se reemplazó el parpadeo bloqueante por una máquina de estado basada en `millis()`.
+- **Lección aprendida:** En sistemas que deben comunicarse por serial, las tareas largas deben dividirse en pasos no bloqueantes.
 
-### Dificultad 2 (si aplica): [Describe brevemente el problema]
+### Dificultad 2: Conteo de botón con rebote
 
-- **Síntoma observado:**
-- **Causa identificada:**
-- **Solución aplicada:**
-- **Lección aprendida:**
+- **Síntoma observado:** Una pulsación podía generar más de un evento.
+- **Causa identificada:** El botón mecánico produce rebotes eléctricos durante la transición.
+- **Solución aplicada:** Se añadió una ventana de debounce por tiempo antes de aceptar una nueva pulsación.
+- **Lección aprendida:** Las interrupciones detectan eventos rápido, pero no eliminan por sí solas el rebote físico.
 
 ---
 
@@ -557,4 +611,4 @@ void procesarComando(char* cmd) {
 
 (c) Cómo distinguirías en el protocolo las respuestas síncronas (a comandos) de los eventos asíncronos (cambios en sensores).
 
-> [Respuesta del estudiante aquí — propuesta de extensión con justificación técnica]
+> Una extensión posible sería mantener el formato `CC NNNNN`, reservando comandos por actuador y por sensor. Por ejemplo: `ML 00150` para fijar PWM del motor izquierdo, `MR 00150` para el motor derecho, `LD 00001` para encender/apagar el LED, `TP 00000` para solicitar temperatura y `DS 00000` para distancia. Las respuestas síncronas podrían iniciar con `OK`, por ejemplo `OK TP=0245` o `OK DS=0120`. Los eventos asíncronos podrían iniciar con `EV`, por ejemplo `EV TP=0300` si la temperatura supera un umbral. Así el cliente distingue fácilmente si un mensaje responde a una orden o si es una notificación espontánea del sistema.

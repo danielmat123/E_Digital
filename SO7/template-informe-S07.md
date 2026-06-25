@@ -10,12 +10,12 @@
 
 | Campo | |
 |-------|--|
-| **Integrantes** | 1. |
-| | 2. |
-| | 3. |
-| | 4. |
+| **Integrantes** | 1. Andres Felipe Polanco Olaya |
+| | 2. Juan Felipe Sanchez Poveda |
+| | 3. Daniel Mateo Gonzales Sánchez |
+| | 4. Juan Sebastian Baquero Pinzon |
 | | 5. |
-| **Grupo** | |
+| **Grupo** | 4 |
 | **Fecha de la práctica** | Miércoles 08 de Abril, 2026 |
 | **Fecha de entrega** | Viernes 25 de Abril, 2026 — 23:59 (Bloque 3: S7, S8, S9) |
 

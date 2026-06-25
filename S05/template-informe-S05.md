@@ -144,7 +144,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 ![Figura 3 — Curva Duty Cycle vs RPM](imagenes/RPM.png)
 
-> **Interpretación:** _(Describir la forma de la curva: zona muerta, punto de arranque, comportamiento en zona lineal. Indicar si la relación es aproximadamente proporcional. Incluir el valor calculado de la pendiente en la zona lineal.)_
+> **Interpretación:** La curva muestra una zona muerta en duty cycle 0, donde el motor no gira. El primer arranque medido ocurre en duty cycle 25, con 2830 RPM. Entre 25 y 100 el crecimiento es fuerte y aproximadamente proporcional; usando los puntos (25, 2830) y (100, 11295), la pendiente estimada es de 112.9 RPM por unidad de duty cycle. A partir de 125-200 la curva se aplana y aparece saturación, por lo que un control proporcional simple funcionaría mejor en la zona media que en los extremos.
 
 ---
 
@@ -155,19 +155,19 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Pregunta A1.1:** ¿Cuántos niveles de brillo distintos puede producir `analogWrite()`?
 
-> [Respuesta del estudiante aquí]
+> `analogWrite()` en Arduino Uno usa PWM de 8 bits, por lo que puede generar 256 niveles distintos de duty cycle, desde 0 hasta 255.
 
 **Pregunta A1.2:** ¿Qué ocurre con el brillo cuando el duty cycle es 0? ¿Y cuando es 255?
 
-> [Respuesta del estudiante aquí]
+> Con duty cycle 0 la salida permanece en bajo y el LED queda apagado. Con duty cycle 255 la salida permanece prácticamente siempre en alto y el LED queda con brillo máximo.
 
 **Pregunta A1.3:** ¿La frecuencia medida con el osciloscopio coincide con los ~490 Hz documentados para el Timer 1?
 
-> [Respuesta del estudiante aquí]
+> No se encontró en `Inputs` una medición de osciloscopio para confirmar la frecuencia. Teóricamente, en pines asociados al Timer 1 como D9/D10, la frecuencia PWM típica es cercana a 490 Hz, salvo que se modifiquen los registros del temporizador.
 
 **Pregunta A1.4:** La función `analogWrite()` genera una señal de frecuencia fija (~490 Hz en D9) con duty cycle variable. ¿Por qué el LED responde con brillo proporcional al duty cycle en lugar de parpadear a 490 Hz? ¿A partir de qué frecuencia mínima aproximada deja de percibirse el parpadeo en el ojo humano?
 
-> [Respuesta del estudiante aquí]
+> El LED no se percibe parpadeando porque 490 Hz está por encima de la frecuencia de fusión del parpadeo del ojo humano. Normalmente, por encima de ~50-60 Hz el ojo integra la luz y percibe brillo promedio, que aumenta con el duty cycle.
 
 ---
 
@@ -175,7 +175,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Pregunta A2.1:** ¿Qué limitación tiene el método de control con velocidad hardcodeada? ¿Qué se debe hacer cada vez que se quiere cambiar la velocidad?
 
-> [Respuesta del estudiante aquí]
+> La velocidad hardcodeada obliga a cambiar el código y recompilar cada vez que se quiere modificar el valor PWM. En cambio, el control por UART permite enviar `VEL=XXX` durante la ejecución y ajustar el experimento sin detener la adquisición ni cargar de nuevo el sketch.
 
 ---
 
@@ -183,7 +183,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Pregunta A3.1:** En el protocolo UART, el parser identifica los comandos comparando `buf[0]` y `buf[1]` directamente en lugar de usar `strcmp()`. ¿Qué condición del formato `CC N\n` hace que esta estrategia sea suficiente? ¿Seguiría siendo válida si el protocolo usara comandos de longitud variable (como en la Parte 2 de S4)?
 
-> [Respuesta del estudiante aquí]
+> La estrategia de comparar `buf[0]` y `buf[1]` funciona cuando el protocolo tiene comandos de longitud fija o prefijos únicos. Si se usaran comandos humanizados de longitud variable, dos letras no bastarían para distinguir órdenes como `STATUS`, `STOP` o `SENTIDO`; allí conviene `strcmp()` o un parser por tokens.
 
 ---
 
@@ -191,11 +191,11 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Pregunta A4.1:** Con base en la Tabla 2: ¿a qué duty cycle arranca el motor por primera vez? ¿Qué porcentaje de la escala total (0–255) representa esa zona muerta?
 
-> [Respuesta del estudiante aquí]
+> El motor arranca por primera vez en duty cycle 25. Esa zona muerta representa 25/255 = 9.8% de la escala PWM total.
 
 **Pregunta A4.2:** La curva duty cycle vs RPM muestra una zona muerta en valores bajos de duty cycle. ¿Qué fenómeno físico del motor DC explica esa zona? ¿Cómo afectaría la existencia de esa zona a un sistema de control PID que intentara regular la velocidad del motor?
 
-> [Respuesta del estudiante aquí]
+> La zona muerta se explica por fricción estática, inercia del rotor y el torque mínimo necesario para vencer pérdidas mecánicas y eléctricas. En un PID, esa no linealidad puede causar error permanente o acumulación excesiva de la integral si el controlador pide valores dentro de la zona donde el motor aún no se mueve.
 
 ---
 
@@ -203,11 +203,11 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Pregunta T.1:** **Compare el enfoque de control de la Actividad 2 (velocidad hardcodeada) con el de la Actividad 3 (control por comandos UART).** ¿Qué ventaja concreta ofrece el segundo enfoque en el contexto de un experimento físico donde se necesita ajustar parámetros sin interrumpir la adquisición de datos? ¿Qué componente del sistema fue el que eliminó la restricción de recompilar? ¿Qué cambió arquitectónicamente entre los dos enfoques?
 
-> [Respuesta del estudiante aquí]
+> El enfoque por UART separa la lógica de control de los parámetros ajustables. La restricción de recompilar desaparece porque el parser serial recibe comandos en tiempo real y actualiza variables internas como velocidad o sentido. Arquitectónicamente se pasó de un programa con parámetros fijos a un sistema interactivo con capa de comunicación.
 
 **Pregunta T.2:** **Con base en la gráfica de la Actividad 4:** ¿La relación RPM vs duty cycle en la zona lineal es aproximadamente proporcional? Estime la pendiente (RPM por unidad de duty cycle) usando dos puntos de la zona lineal y determine si el ajuste es adecuado para un control proporcional simple.
 
-> [Respuesta del estudiante aquí]
+> En la zona baja-media la relación puede aproximarse como proporcional, especialmente entre duty 25 y 100 con pendiente cercana a 112.9 RPM/duty. Sin embargo, la saturación por encima de 125 reduce la pendiente efectiva, así que un control proporcional simple debe calibrarse para la zona de operación y no asumir linealidad en todo el rango.
 
 ---
 
@@ -581,19 +581,19 @@ void leerSerial() {
 ## 5. Dificultades Encontradas y Soluciones Aplicadas
 
 
-### Dificultad 1: [Descripción breve del problema]
+### Dificultad 1: Zona muerta del motor
 
-- **Síntoma observado:** _(¿Qué ocurrió exactamente?)_
-- **Causa identificada:** _(¿Por qué ocurrió?)_
-- **Solución aplicada:** _(¿Cómo lo resolvieron?)_
-- **Lección aprendida:** _(¿Qué cambiarían la próxima vez?)_
+- **Síntoma observado:** Con duty cycle bajo el motor no giraba aunque existiera señal PWM.
+- **Causa identificada:** El torque inicial no era suficiente para vencer la fricción estática y la inercia del eje.
+- **Solución aplicada:** Se caracterizó el arranque y se identificó duty cycle 25 como primer valor efectivo.
+- **Lección aprendida:** En actuadores reales no siempre existe una respuesta lineal desde cero.
 
-### Dificultad 2 (si aplica): [Descripción breve del problema]
+### Dificultad 2: Seguridad al cambiar sentido
 
-- **Síntoma observado:**
-- **Causa identificada:**
-- **Solución aplicada:**
-- **Lección aprendida:**
+- **Síntoma observado:** Cambiar sentido a velocidades altas podía exigir demasiado al motor y al puente H.
+- **Causa identificada:** La inversión rápida de polaridad produce transitorios de corriente.
+- **Solución aplicada:** Se recomendó probar cambios de sentido con velocidades bajas y controlar el valor PWM por UART.
+- **Lección aprendida:** El control de potencia debe considerar límites eléctricos y mecánicos del montaje.
 
 ---
 
@@ -602,4 +602,4 @@ void leerSerial() {
 
 **Pregunta:** La curva de caracterización de la Actividad 4 fue obtenida sin carga mecánica en el eje del motor. Proponga cómo cambiaría la curva si se aplica una carga de fricción constante al eje (por ejemplo, frenando el disco encoder con un dedo levemente). ¿En qué dirección se desplazaría la zona muerta? ¿Cómo podría usarse esa diferencia para estimar el torque de fricción del sistema, conociendo las especificaciones del motor?
 
-> [Respuesta del estudiante aquí]
+> Si se aplica una carga de fricción constante, la curva se desplazaría hacia la derecha: el duty cycle mínimo de arranque aumentaría y, para un mismo PWM, las RPM serían menores. Esa diferencia puede usarse para estimar el torque de fricción comparando la velocidad sin carga y con carga, junto con la curva torque-velocidad del motor. Si se conoce el torque de parada y la velocidad sin carga del motor, la caída de RPM permite aproximar qué fracción del torque disponible se está usando para vencer la fricción.
