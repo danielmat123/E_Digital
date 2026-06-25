@@ -69,11 +69,9 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos 10 filas** 
 
 **Caption obligatorio:** Indicar el valor de duty cycle al 0 %, al ~50 % y al 100 %.
 
-```
-[Insertar Figura 1 aquí]
-```
+![Figura 1 — Serial Monitor PWM LED](imagenes/fig1-serial-monitor-pwm-led.png)
 
-> **Descripción:** _(Describir brevemente qué muestra la captura y confirmar la relación lineal entre ADC y duty cycle observada.)_
+> **Descripción:** La captura resume los datos del Serial Monitor extraídos de `Inputs/SO5/Datos_05.docx`. Se observan tres condiciones representativas: duty cycle 0 para 0 % de brillo, duty cycle 127 para aproximadamente 49 % y duty cycle 255 para 100 %. Esto confirma que la salida PWM se escala linealmente en la variable `dutyCycle`, aunque el valor ADC registrado en esta evidencia permanece en 1023.
 
 ---
 
