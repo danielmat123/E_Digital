@@ -28,8 +28,8 @@
 
 Adjuntar captura de pantalla del archivo `.csv` abierto en Excel/Sheets mostrando el encabezado, las primeras 5 filas y las últimas 5 filas. Indicar el conteo total de filas y el tiempo de captura.
 
-![Insertar Figura 1 aquí](imagenes/datosCSV1.png)
-![Insertar Figura 2 aquí](imagenes/datosCSV2.png)
+![CSV generado - primeras filas](imagenes/datosCSV1.png)
+![CSV generado - últimas filas](imagenes/datosCSV2.png)
 
 
 > **Descripción:** Se capturaron 114 filas de datos entre 0.5 s y 57.0 s. El archivo contiene el encabezado `t_ms,raw_ldr,raw_lm35,raw_pot`. Los timestamps son crecientes y la diferencia promedio entre muestras es de 500 ms, exactamente el valor nominal esperado para una cadencia de 2 Hz.
@@ -64,7 +64,7 @@ _Los valores deben calcularse con fórmulas de la hoja electrónica (`=PROMEDIO(
 
 Adjuntar captura de pantalla del Serial Monitor donde se vea el mensaje de detección del dispositivo I2C con su dirección.
 
-![Insertar Figura 2 aquí](imagenes/serialmonitor1.png)
+![Serial Monitor - I2C Scanner](imagenes/serialmonitor1.png)
 
 ---
 

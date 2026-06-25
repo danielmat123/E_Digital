@@ -39,15 +39,13 @@ Se adjuntan las capturas disponibles en `Inputs`: diente de sierra y triangular.
 
 ![Triangular](imagenes/reto-1-triangular.png)
 
-![Senoidal con LUT](imagenes/reto-1-senoidal.png)
+> Pendiente: agregar la captura de la señal senoidal cuando esté disponible.
 
 #### Captura 5: Control de frecuencia
 
 No se encontraron en `Inputs` capturas separadas de frecuencia mínima y máxima; esta evidencia queda pendiente.
 
-![Frecuencia mínima](imagenes/reto-1-freq-min.png)
-
-![Frecuencia máxima](imagenes/reto-1-freq-max.png)
+> Pendiente: agregar capturas de frecuencia mínima y frecuencia máxima cuando estén disponibles.
 
 ---
 
@@ -105,8 +103,6 @@ Graficar todos los datos del barrido completo del LED rojo (≥ 50 filas del CSV
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
 
-![Curva I-V LED rojo](imagenes/grafica-1-iv-rojo.png)
-
 **Interpretación:**
 
 > Pendiente: en `Inputs` no se encontró el CSV completo del barrido I-V del LED rojo ni la gráfica correspondiente. Cuando se agregue el archivo, se debe identificar el punto donde la corriente empieza a crecer rápidamente y estimar el voltaje umbral.
@@ -119,8 +115,6 @@ Superponer las curvas I-V del LED rojo y del LED verde en un mismo gráfico.
 
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
-
-![Comparación I-V rojo vs verde](imagenes/grafica-2-iv-comparacion.png)
 
 **Interpretación:**
 
