@@ -54,7 +54,7 @@ Monitor Serial de la Fase A mostrando columnas `t(ms)`, `Bruto` y `ConDebounce_S
 ![Captura Monitor Serial — Fase A](imagenes/1.png)
 
 **Comparasión entre los métodos de Debouncing:**
-El porcentaje de reducción de falsos positivos acumulado del debouncing por software obtenido de la Tabla 1 es del 7.4%, mientras que el obtenido de la Tabla 2 es del 0%. De modo que se puede concluir que para el contador ISR la técnica de debouncing por hardware (capacitor RC) es la más efectiva, pues preserva la totalidad de las pulsaciones sin dar lugar a falsos positivos.
+El debouncing por software redujo el conteo acumulado de 21 a 20 pulsaciones al final del ensayo, es decir, corrigió 1 falso positivo sobre 21 eventos brutos (~4.8%). En la prueba resumida con capacitor RC no se observó diferencia entre el conteo con capacitor y la referencia registrada, por lo que en esta corrida la evidencia cuantitativa más clara de corrección aparece en el método por software. El capacitor sigue siendo útil como mitigación física, pero los datos disponibles no muestran una reducción adicional medible.
 
 ---
 

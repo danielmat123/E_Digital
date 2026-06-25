@@ -10,12 +10,12 @@
 
 | Campo | |
 |-------|--|
-| **Integrantes** | 1. |
-| | 2. |
-| | 3. |
-| | 4. |
+| **Integrantes** | 1. Andres Felipe Polanco Olaya |
+| | 2. Juan Felipe Sanchez Poveda |
+| | 3. Daniel Mateo Gonzales Sánchez |
+| | 4. Juan Sebastian Baquero Pinzon |
 | | 5. |
-| **Grupo** | |
+| **Grupo** | 4 |
 | **Fecha de la práctica** | Miércoles 08 de Abril, 2026 |
 | **Fecha de entrega** | Viernes 25 de Abril, 2026 — 23:59 (Bloque 3: S7, S8, S9) |
 
@@ -37,7 +37,7 @@
 
 **Captura Act. 2:** Screenshot del Serial Plotter mostrando oscilación ON/OFF con al menos 3 ciclos completos visibles.
 
-![Screenshot ON/OFF — oscilación](imagenes/act2-onoff-oscilacion.png)
+> Pendiente: agregar captura `imagenes/act2-onoff-oscilacion.png` cuando se tome la evidencia.
 
 ---
 
@@ -57,11 +57,7 @@
 
 **Capturas Act. 3:** Al menos 3 screenshots del Serial Plotter, uno por cada valor de Kp, etiquetados con el valor correspondiente.
 
-![Screenshot P — Kp 1](imagenes/act3-control-p-kp1.png)
-
-![Screenshot P — Kp 2](imagenes/act3-control-p-kp2.png)
-
-![Screenshot P — Kp 3](imagenes/act3-control-p-kp3.png)
+> Pendiente: agregar capturas `imagenes/act3-control-p-kp1.png`, `imagenes/act3-control-p-kp2.png` e `imagenes/act3-control-p-kp3.png` cuando se tome la evidencia.
 
 ---
 
@@ -84,13 +80,7 @@
 - Screenshot mostrando wind-up (sin `constrain` sobre `errorSum`): se observa como un sobreimpulso severo seguido de una recuperación muy lenta o nula hacia el setpoint. El wind-up **no** es directamente visible en la curva de `errorSum` (que no se grafica); lo que se observa es el efecto en temperatura: la inercia acumulada en el integrador hace que el calentador siga a máxima potencia mucho después de haber cruzado el setpoint.
 - Al menos 3 screenshots con diferentes valores de Ki (con `constrain` activo), etiquetados con Kp y Ki.
 
-![Screenshot PI — wind-up](imagenes/act4-control-pi-windup.png)
-
-![Screenshot PI — Ki 1](imagenes/act4-control-pi-ki1.png)
-
-![Screenshot PI — Ki 2](imagenes/act4-control-pi-ki2.png)
-
-![Screenshot PI — Ki 3](imagenes/act4-control-pi-ki3.png)
+> Pendiente: agregar capturas `imagenes/act4-control-pi-windup.png`, `imagenes/act4-control-pi-ki1.png`, `imagenes/act4-control-pi-ki2.png` e `imagenes/act4-control-pi-ki3.png` cuando se tome la evidencia.
 
 ---
 
