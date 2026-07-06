@@ -192,7 +192,7 @@ $$\text{Error} = \frac{|t_{\text{medido}} - t_{\text{teórico}}|}{t_{\text{teór
 
 **Interpretación:**
 
-> La sesión reconstruida muestra que Python compone tramas compactas de formato fijo (`ST 00000`, `ON 00000`, `BL 00005`, `EV 00001`), recibe respuestas `OK` y las traduce a mensajes legibles. Las respuestas coinciden con la tabla de verificación: estado, encendido, parpadeo y lectura de eventos.
+> La prueba documentada muestra que Python compone tramas compactas de formato fijo (`ST 00000`, `ON 00000`, `BL 00005`, `EV 00001`), recibe respuestas `OK` y las traduce a mensajes legibles. Las respuestas coinciden con la tabla de verificación: estado, encendido, parpadeo y lectura de eventos.
 
 ---
 
@@ -294,7 +294,7 @@ Serial.begin(115200);
  *   LED ON      → enciende el LED
  *   LED OFF     → apaga el LED
  *   BLINK n     → parpadea el LED n veces
- *   COUNT       → TODO: responde cuántas veces se presionó el botón
+ *   COUNT       → responde cuántas veces se presionó el botón
  *
  * === CIRCUITO ===
  *   D2  — Botón con pull-down 10 kΩ (HIGH = presionado)
@@ -328,14 +328,7 @@ volatile unsigned int contadorISR = 0;
 // Añade esta variable para el debounce
 volatile unsigned long ultimaInterrupcion = 0;
 
-// ============================================================
-// TODO — ACTIVIDAD 4: Variables para el comando COUNT
-// ============================================================
-//
-// COUNT debe reportar cuántas veces se ha presionado el botón
-// desde el arranque. Declara aquí las variables que necesites.
-//
-// ============================================================
+// COUNT se resuelve con contadorISR y debounce temporal dentro de la ISR.
 
 // ============================================================
 // CONFIGURACIÓN
@@ -376,17 +369,8 @@ void loop() {
   leerSerial();
   Blink_no();
 
-  // --------------------------------------------------------
-  // TODO — ACTIVIDAD 4: Detectar pulsaciones del botón aquí
-  // --------------------------------------------------------
-  //
-  // En cada iteración del loop() debes detectar cuando el botón
-  // es presionado y actualizar tu contador.
-
   // adicionalmente de que la funcion Blink_no esta todo el tiempo ejecutandose de forma que no bloquea la funcion 
   // leerSerial, dado que son dos funciones completamente diferentes
-  //
-  // --------------------------------------------------------
 }
 
 // ============================================================
@@ -492,13 +476,6 @@ void procesarComando(char* cmd) {
     Serial.print("Pulsaciones: ");
     Serial.println(contadorISR);
   }
-
-  // --------------------------------------------------------
-  // TODO — ACTIVIDAD 4: Implementar COUNT aquí
-  // --------------------------------------------------------
-  // Agrega una rama else if para el comando "COUNT".
-  // La respuesta debe incluir el número de pulsaciones registradas.
-  // --------------------------------------------------------
 
   // --- Comando desconocido ---
   else {

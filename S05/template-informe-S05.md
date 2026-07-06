@@ -97,7 +97,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 
 **Caption obligatorio:** se utilizo el codigo STATUS, VEL=150, VEL=50, SENTIDO 
 
-![Insertar Figura 2 aquí](imagenes/capturaUART.png)
+![Figura 2 — Intercambios UART](imagenes/capturaUART.png)
 
 
 > **Descripción:** _(Los comando enviados funcionan tal y como se esperan el status no es bloqueante,indicar la velocidad funciona y es medible, el cambio de sentido funciona pero es necesario tener precaucion para no dañar el motor, preferible usar velocidades bajas)_

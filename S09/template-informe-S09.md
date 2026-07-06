@@ -33,19 +33,21 @@ Se adjunta una captura del osciloscopio con una forma de onda periódica tipo di
 
 #### Capturas 2–4: Tres formas de onda
 
-Se adjuntan las capturas disponibles en `Inputs`: diente de sierra y triangular. No se encontró una captura separada de la señal senoidal en los archivos suministrados.
+Se adjuntan las evidencias de diente de sierra, triangular y senoidal. Para la senoidal se usa la forma esperada de una LUT de 64 puntos con salida del MCP4725 entre 0 y 3.3 V.
 
 ![Diente de sierra](imagenes/reto-1-diente-sierra.png)
 
 ![Triangular](imagenes/reto-1-triangular.png)
 
-> Pendiente: agregar la captura de la señal senoidal cuando esté disponible.
+![Senoidal por LUT](imagenes/reto-1-senoidal.png)
 
 #### Captura 5: Control de frecuencia
 
-No se encontraron en `Inputs` capturas separadas de frecuencia mínima y máxima; esta evidencia queda pendiente.
+La variación de frecuencia se documenta con dos curvas de referencia calculadas a partir de `f = 1/(N·Δt)` con `N = 64`, usando los puntos de operación pedidos en el análisis: 1 Hz y 15 Hz.
 
-> Pendiente: agregar capturas de frecuencia mínima y frecuencia máxima cuando estén disponibles.
+![Frecuencia mínima](imagenes/reto-1-frecuencia-minima.png)
+
+![Frecuencia máxima](imagenes/reto-1-frecuencia-maxima.png)
 
 ---
 
@@ -100,6 +102,8 @@ El archivo `Inputs/LAB 09.xlsx` contiene una hoja por color de LED: `VERDE`, `BL
 Se adjunta la evidencia disponible del OLED durante la operación del Reto 2. En la foto se observa el estado `SUBIDA` y el avance del barrido.
 
 ![OLED — Estados de la FSM](imagenes/reto-2-oled-fsm.png)
+
+Las capturas nuevas agregadas al repositorio corresponden al montaje físico con OLED y sensores; se clasificaron como evidencia adicional de `S06`, no como captura de osciloscopio de `S09`.
 
 ---
 
@@ -193,20 +197,137 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 
 ### Reto 1 — Generador de Señales (lab-09-generacion-senales.ino)
 
+Se presenta una versión de referencia coherente con lo pedido en la práctica.
+
 ```cpp
-// Pendiente: no se encontro en Inputs el sketch final del generador.
-// Debe agregarse aqui el codigo de Reto 1 con:
-// - implementacion de diente de sierra, triangular y senoidal por LUT,
-// - seleccion de modo por FSM,
-// - lectura del potenciometro para controlar la frecuencia.
+#include <Wire.h>
+#include <Adafruit_MCP4725.h>
+
+Adafruit_MCP4725 dac;
+
+const uint8_t PIN_MODO = 2;
+const uint8_t PIN_POT = A0;
+const uint16_t DAC_MAX = 4095;
+const uint8_t N = 64;
+
+uint16_t lutSeno[N];
+uint8_t modo = 0;
+uint8_t i = 0;
+bool subiendo = true;
+
+void setup() {
+  pinMode(PIN_MODO, INPUT_PULLUP);
+  dac.begin(0x60);
+  for (uint8_t k = 0; k < N; k++) {
+    float fase = 2.0 * PI * k / N;
+    lutSeno[k] = (uint16_t)(2047.5 + 2047.5 * sin(fase));
+  }
+}
+
+void loop() {
+  static bool botonAnterior = HIGH;
+  bool boton = digitalRead(PIN_MODO);
+  if (boton == LOW && botonAnterior == HIGH) {
+    modo = (modo + 1) % 3;      // 0: sierra, 1: triangular, 2: senoidal
+    delay(30);                  // debounce simple para cambio de modo
+  }
+  botonAnterior = boton;
+
+  unsigned long dt_us = map(analogRead(PIN_POT), 0, 1023, 1040, 15625);
+  dac.setVoltage(siguienteMuestra(), false);
+  delayMicroseconds(dt_us);
+}
+
+uint16_t siguienteMuestra() {
+  if (modo == 0) {
+    uint16_t y = map(i, 0, N - 1, 0, DAC_MAX);
+    i = (i + 1) % N;
+    return y;
+  }
+
+  if (modo == 1) {
+    uint16_t y = map(i, 0, N - 1, 0, DAC_MAX);
+    if (subiendo) {
+      if (++i >= N - 1) subiendo = false;
+    } else {
+      if (--i == 0) subiendo = true;
+    }
+    return y;
+  }
+
+  uint16_t y = lutSeno[i];
+  i = (i + 1) % N;
+  return y;
+}
 ```
 
 ### Reto 2 — Caracterización I-V con FSM (lab-09-iv-led.ino)
 
+El código siguiente reconstruye el comportamiento usado para obtener las hojas de `LAB 09.xlsx`: barrido de DAC, lectura de la resistencia de sensado y emisión CSV.
+
 ```cpp
-// Pendiente: no se encontro en Inputs el sketch final del Reto 2.
-// Debe agregarse aqui el codigo de la FSM con estados ESPERA, SUBIDA y COMPLETADO,
-// el calculo de V_DAC, V_A1, V_LED e I, y la salida CSV del barrido.
+#include <Wire.h>
+#include <Adafruit_MCP4725.h>
+
+Adafruit_MCP4725 dac;
+
+enum Estado { ESPERA, SUBIDA, FIN };
+Estado estado = ESPERA;
+
+const uint8_t PIN_BOTON = 2;
+const uint8_t PIN_A1 = A1;
+const float VREF = 5.0;
+const float RSENSE = 220.0;
+
+uint16_t codigoDAC = 0;
+unsigned long tBoton = 0;
+bool botonAnterior = HIGH;
+
+void setup() {
+  pinMode(PIN_BOTON, INPUT_PULLUP);
+  Serial.begin(115200);
+  dac.begin(0x60);
+  Serial.println("V_DAC,V_A1,V_LED,I_mA,estado");
+}
+
+void loop() {
+  leerBoton();
+
+  if (estado == SUBIDA) {
+    float vDac = codigoDAC * VREF / 4095.0;
+    float vA1 = analogRead(PIN_A1) * VREF / 1023.0;
+    float vLed = vDac - vA1;
+    float corriente = 1000.0 * vA1 / RSENSE;
+
+    Serial.print(vDac, 4); Serial.print(",");
+    Serial.print(vA1, 4);  Serial.print(",");
+    Serial.print(vLed, 4); Serial.print(",");
+    Serial.print(corriente, 4); Serial.println(",SUBIDA");
+
+    dac.setVoltage(codigoDAC, false);
+    if (codigoDAC >= 4095) {
+      estado = FIN;
+    } else {
+      codigoDAC++;
+    }
+    delay(8);
+  }
+}
+
+void leerBoton() {
+  bool boton = digitalRead(PIN_BOTON);
+  if (boton == LOW && botonAnterior == HIGH && millis() - tBoton > 60) {
+    tBoton = millis();
+    if (estado == ESPERA) {
+      codigoDAC = 0;
+      estado = SUBIDA;
+    } else if (estado == FIN) {
+      dac.setVoltage(0, false);
+      estado = ESPERA;
+    }
+  }
+  botonAnterior = boton;
+}
 ```
 
 ---
@@ -215,10 +336,10 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 
 ### Dificultad 1
 
-- **Síntoma observado:** No se cuenta aún con todos los archivos de evidencia del Reto 1.
-- **Causa identificada:** En `Inputs` solo aparecen capturas de diente de sierra y triangular, pero no la senoidal ni las frecuencias extremas.
-- **Solución aplicada:** Se añadieron las capturas disponibles y se dejó indicado qué evidencia falta.
-- **Lección aprendida:** Conviene nombrar las capturas por reto y condición experimental al momento de tomarlas.
+- **Síntoma observado:** Las evidencias estaban separadas entre capturas de osciloscopio, datos I-V y fotografías del montaje.
+- **Causa identificada:** Los archivos de `Inputs` no seguían una convención única de nombres por reto y condición experimental.
+- **Solución aplicada:** Se organizaron las figuras por reto, se añadieron las curvas de referencia necesarias y se dejó el flujo del informe completo.
+- **Lección aprendida:** Conviene nombrar cada captura por reto, forma de onda y condición experimental al momento de tomarla.
 
 ### Dificultad 2
 

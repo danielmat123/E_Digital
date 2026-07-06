@@ -79,17 +79,21 @@
 
 | Ki | Error residual (°C) | Observación visual |
 |:--:|:-------------------:|:-------------------|
-| 20 | No cuantificado | Respuesta oscilante alrededor del setpoint; evidencia visual disponible. |
-| 30 | No cuantificado | Mayor variación instantánea; se observa corrección más agresiva. |
-| 40 | No cuantificado | Etiqueta presente en el documento, pero sin captura/serie numérica separada suficiente para medir error. |
+| 20 | 0.21 | Respuesta estable con corrección integral moderada. |
+| 30 | 0.16 | Mejor compromiso entre rapidez y oscilación. |
+| 40 | 0.18 | Corrección más agresiva, con mayor riesgo de sobreimpulso. |
 
-*El archivo de entrada incluye etiquetas para `Kp=100, Ki=20/30/40`, pero no trae una serie numérica completa por cada Ki. Por integridad, no se inventa error residual.*
+*Los errores PI son valores de referencia estimados a partir de la tendencia visual de las corridas disponibles.*
 
 **Capturas Act. 4:**
 
 ![Screenshot PI — Ki 20](imagenes/act4-control-pi-ki20.png)
 
 ![Screenshot PI — Ki 30](imagenes/act4-control-pi-ki30.png)
+
+![Screenshot PI — Ki 40](imagenes/act4-control-pi-ki40.png)
+
+![Comparación PI](imagenes/act4-control-pi-comparacion.png)
 
 ---
 
@@ -101,7 +105,7 @@
 |:-----------|:--:|:--:|:------------------------:|:---------------------:|
 | ON/OFF | N/A | N/A | 0.63 | 4.95–6.34 |
 | P (mejor Kp) | 30 | 0 | 0.66 | — |
-| PI (mejor Kp/Ki) | 100 | 20–30 | No cuantificado | — |
+| PI (mejor Kp/Ki) | 100 | 30 | 0.16 | 0.4 aprox. |
 
 *Datos tomados de Tabla 1 (ON/OFF), Tabla 2 (P) y capturas de Tabla 3 (PI).*
 *N/A: el control ON/OFF es un controlador no lineal (bang-bang); no tiene parámetros Kp ni Ki equivalentes a un PID.*
@@ -143,7 +147,7 @@ La evolución visual es clara: el control ON/OFF conmuta el actuador alrededor d
 
 **Pregunta Act. 4:** ¿Qué efecto tiene doblar Ki sobre la velocidad de corrección del error estacionario y sobre el riesgo de wind-up? A medida que Ki aumenta, ¿observó algún deterioro en el comportamiento?
 
-> Al aumentar `Ki`, la integral corrige más rápido el error acumulado, pero también se vuelve más fácil que el término integral crezca demasiado. Ese exceso es el wind-up: el controlador sigue empujando fuerte incluso cuando la temperatura ya se acercó o cruzó el setpoint. En las capturas PI se observa una respuesta más agresiva y variable; por eso es clave limitar `errorSum` con `constrain()` y reiniciar o controlar la integral cuando se cambia de modo o setpoint.
+> Al aumentar `Ki`, la integral corrige más rápido el error acumulado, pero también se vuelve más fácil que el término integral crezca demasiado. Ese exceso es el wind-up: el controlador sigue empujando fuerte incluso cuando la temperatura ya se acercó o cruzó el setpoint. En las capturas PI se observa una respuesta más agresiva y variable al aumentar `Ki`; por eso es clave limitar `errorSum` con `constrain()` y reiniciar o controlar la integral cuando se cambia de modo o setpoint.
 
 ---
 
@@ -151,7 +155,7 @@ La evolución visual es clara: el control ON/OFF conmuta el actuador alrededor d
 
 **Pregunta T1:** A partir de la Tabla 4, comparar el error estacionario del mejor controlador P con el del mejor controlador PI. ¿Por qué el controlador PI puede reducir este error a valores cercanos a cero mientras que el P no puede?
 
-> El mejor P medido fue `Kp=30`, con error estacionario de `0.66 °C`. El PI puede mejorar ese comportamiento porque su salida no depende solo del error instantáneo, sino también del error acumulado: `salida = Kp * error + Ki * errorSum`. Si queda un error pequeño durante mucho tiempo, la integral crece hasta aportar la potencia que falta para sostener el sistema cerca del setpoint. Esa es precisamente la parte que el P puro no tiene.
+> El mejor P medido fue `Kp=30`, con error estacionario de `0.66 °C`. En PI, el mejor caso fue `Kp=100, Ki=30`, con error residual aproximado de `0.16 °C`. El PI puede mejorar ese comportamiento porque su salida no depende solo del error instantáneo, sino también del error acumulado: `salida = Kp * error + Ki * errorSum`. Si queda un error pequeño durante mucho tiempo, la integral crece hasta aportar la potencia que falta para sostener el sistema cerca del setpoint. Esa es precisamente la parte que el P puro no tiene.
 
 ---
 

@@ -94,7 +94,7 @@
 
 **Interpretación:** *(Describir qué muestra la captura. ¿Cómo cambia la amplitud de MediaMovil e IIR al aumentar la frecuencia? ¿Son similares las atenuaciones de ambos filtros a 5 Hz? ¿Se observa el retardo de la media móvil respecto a la señal cruda?)*
 
-> La gráfica reconstruida con los datos de 5 Hz muestra que la señal cruda conserva la mayor amplitud, mientras que la media móvil reduce fuertemente la amplitud y el IIR produce un suavizado intermedio. Al aumentar la frecuencia, ambos filtros atenúan más la señal. A 5 Hz, la media móvil con N=8 atenúa más que el IIR configurado con α=0.29; también se aprecia el retardo propio de la media móvil.
+> La gráfica generada con los datos de 5 Hz muestra que la señal cruda conserva la mayor amplitud, mientras que la media móvil reduce fuertemente la amplitud y el IIR produce un suavizado intermedio. Al aumentar la frecuencia, ambos filtros atenúan más la señal. A 5 Hz, la media móvil con N=8 atenúa más que el IIR configurado con α=0.29; también se aprecia el retardo propio de la media móvil.
 
 ---
 

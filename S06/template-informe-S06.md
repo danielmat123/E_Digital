@@ -100,6 +100,16 @@ Foto del montaje con el OLED mostrando una de las pantallas de detalle. Etiqueta
 
 ![OLED pantalla de detalle - temperatura](imagenes/oled_detalle_temperatura.jpg)
 
+**Evidencia adicional agregada:** Las nuevas capturas muestran el mismo montaje con diferentes lecturas en OLED, por lo que se anexan como respaldo visual de la integración de sensores, botón y display.
+
+![Montaje OLED completo](imagenes/montaje_oled_completo_20260706.jpg)
+
+![OLED estado potenciometro](imagenes/oled_estado_pot_20260706.jpg)
+
+![OLED estado LDR](imagenes/oled_estado_ldr_20260706.jpg)
+
+![OLED estado temperatura](imagenes/oled_estado_temp_20260706.jpg)
+
 ---
 
 **Figura 5 — Serial Monitor mostrando CSV continuo durante conmutación de pantallas**
