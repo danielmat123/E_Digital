@@ -71,7 +71,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos 10 filas** 
 
 ![Figura 1 — Serial Monitor PWM LED](imagenes/fig1-serial-monitor-pwm-led.png)
 
-> **Descripción:** La captura resume los datos del Serial Monitor extraídos de `Inputs/SO5/Datos_05.docx`. Se observan tres condiciones representativas: duty cycle 0 para 0 % de brillo, duty cycle 127 para aproximadamente 49 % y duty cycle 255 para 100 %. Esto confirma que la salida PWM se escala linealmente en la variable `dutyCycle`, aunque el valor ADC registrado en esta evidencia permanece en 1023.
+> **Descripción:** Se observan tres condiciones representativas: duty cycle 0 para 0 % de brillo, duty cycle 127 para aproximadamente 49 % y duty cycle 255 para 100 %. Esto confirma que la salida PWM se escala linealmente en la variable `dutyCycle`, aunque el valor ADC registrado en esta evidencia permanece en 1023.
 
 ---
 
@@ -100,7 +100,7 @@ Adjuntar captura de pantalla del Serial Monitor mostrando **al menos tres interc
 ![Figura 2 — Intercambios UART](imagenes/capturaUART.png)
 
 
-> **Descripción:** _(Los comando enviados funcionan tal y como se esperan el status no es bloqueante,indicar la velocidad funciona y es medible, el cambio de sentido funciona pero es necesario tener precaucion para no dañar el motor, preferible usar velocidades bajas)_
+> **Descripción:** Los comando enviados funcionan tal y como se esperan el status no es bloqueante,indicar la velocidad funciona y es medible, el cambio de sentido funciona pero es necesario tener precaucion para no dañar el motor, preferible usar velocidades bajas
 
 ---
 
