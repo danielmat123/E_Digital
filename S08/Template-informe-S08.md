@@ -112,7 +112,7 @@
 
 **Interpretación:** *(A partir de la gráfica: ¿el ratio medido sigue la curva 1/√N? Si hay discrepancia, ¿en qué valores de N es mayor? ¿Qué podría explicarlo?)*
 
-> Los datos medidos no siguen la curva teórica `1/√N`; de hecho, los ratios aumentan para N grandes. Esto indica que las capturas probablemente no fueron tomadas bajo las mismas condiciones de ruido estacionario o incluyen deriva lenta de temperatura/alimentación. La gráfica deja ver esa discrepancia y sirve para discutir que el oversampling solo mejora ruido aleatorio no correlacionado; no corrige deriva ni cambios ambientales.
+> Los datos medidos no siguen la curva teórica `1/√N`; de hecho, los ratios aumentan para N grandes. Esto indica que las capturas no fueron tomadas bajo las mismas condiciones de ruido estacionario o incluyen deriva lenta de temperatura/alimentación. La gráfica deja ver esa discrepancia y sirve para discutir que el oversampling solo mejora ruido aleatorio no correlacionado; no corrige deriva ni cambios ambientales.
 
 ---
 
@@ -232,7 +232,7 @@ void loop() {
 ### Dificultad 1: Diferenciar ruido aleatorio de deriva
 
 - **Síntoma observado:** El oversampling no redujo la desviación como predice la teoría.
-- **Causa identificada:** Los datos parecen incluir deriva lenta o condiciones no estacionarias, no solo ruido aleatorio.
+- **Causa identificada:** Los datos incluyen deriva lenta o condiciones no estacionarias, no solo ruido aleatorio.
 - **Solución aplicada:** Se comparó la curva medida con `1/√N` y se interpretó la discrepancia.
 - **Lección aprendida:** Promediar solo mejora ruido aleatorio; no reemplaza una buena estabilidad del montaje.
 
