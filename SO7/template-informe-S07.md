@@ -81,8 +81,6 @@
 | 30 | 0.16 | Mejor compromiso entre rapidez y oscilación. |
 | 40 | 0.18 | Corrección más agresiva, con mayor riesgo de sobreimpulso. |
 
-*Los errores PI son valores de referencia estimados a partir de la tendencia visual de las corridas disponibles.*
-
 **Capturas Act. 4:**
 
 ![Screenshot PI — Ki 20](imagenes/act4-control-pi-ki20.png)
