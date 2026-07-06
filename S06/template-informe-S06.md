@@ -16,7 +16,7 @@
 | | 4. Juan Sebastian Baquero Pinzon|
 | **Grupo** | 4|
 | **Fecha de la práctica** | Miércoles 6 de mayo de 2026 |
-| **Fecha de entrega** | **Miércoles 8 de abril de 2026, 23:59** |
+| **Fecha de entrega** |  |
 
 ---
 
@@ -43,8 +43,6 @@ Adjuntar captura de pantalla del archivo `.csv` abierto en Excel/Sheets mostrand
 | LDR (`raw_ldr`) |803.53 | 766| 992|
 | LM35 (`raw_lm35`) | 39.66| 36| 47|
 | Potenciómetro (`raw_pot`) |524.97 | 0|1020 |
-
-_Los valores deben calcularse con fórmulas de la hoja electrónica (`=PROMEDIO()`, `=MIN()`, `=MAX()`), no copiarse manualmente._
 
 ---
 
@@ -100,7 +98,7 @@ Foto del montaje con el OLED mostrando una de las pantallas de detalle. Etiqueta
 
 ![OLED pantalla de detalle - temperatura](imagenes/oled_detalle_temperatura.jpg)
 
-**Evidencia adicional agregada:** Las nuevas capturas muestran el mismo montaje con diferentes lecturas en OLED, por lo que se anexan como respaldo visual de la integración de sensores, botón y display.
+Las capturas muestran el mismo montaje con diferentes lecturas en OLED, por lo que se anexan como respaldo visual de la integración de sensores, botón y display.
 
 ![Montaje OLED completo](imagenes/montaje_oled_completo_20260706.jpg)
 
