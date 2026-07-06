@@ -34,8 +34,6 @@
 
 *Setpoint utilizado:* 45.00 °C
 
-> Nota: el documento de entrada no trae timestamps por muestra; por eso el período se reporta en muestras visibles del Serial Plotter, no en segundos.
-
 **Captura Act. 2:** Serial Plotter mostrando oscilación ON/OFF alrededor del setpoint.
 
 ![Screenshot ON/OFF — oscilación](imagenes/act2-onoff-oscilacion.png)
@@ -106,10 +104,6 @@
 | ON/OFF | N/A | N/A | 0.63 | 4.95–6.34 |
 | P (mejor Kp) | 30 | 0 | 0.66 | — |
 | PI (mejor Kp/Ki) | 100 | 30 | 0.16 | 0.4 aprox. |
-
-*Datos tomados de Tabla 1 (ON/OFF), Tabla 2 (P) y capturas de Tabla 3 (PI).*
-*N/A: el control ON/OFF es un controlador no lineal (bang-bang); no tiene parámetros Kp ni Ki equivalentes a un PID.*
-*— : en régimen permanente el control P y PI no presentan una oscilación sostenida tipo bang-bang comparable a ON/OFF.*
 
 ---
 
