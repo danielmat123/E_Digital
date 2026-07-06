@@ -55,8 +55,6 @@ La variación de frecuencia se documenta con dos curvas de referencia calculadas
 
 #### Tabla 1 — Datos I-V de muestra
 
-El archivo `Inputs/LAB 09.xlsx` contiene una hoja por color de LED: `VERDE`, `BLANCO`, `AZUL`, `ROJO` y `YELLOW`. Para la tabla de muestra se usa la hoja `ROJO`, con 512 filas de barrido. El último registro corresponde al máximo `V_DAC` medido en la hoja (`4.9915 V`, equivalente práctico del extremo de 5 V del barrido).
-
 **Primeras 10 filas — LED rojo:**
 
 | V_DAC (V) | V_A1 (V) | V_LED (V) | I (mA) |
@@ -99,11 +97,9 @@ El archivo `Inputs/LAB 09.xlsx` contiene una hoja por color de LED: `VERDE`, `BL
 
 #### Captura: Estados de la FSM en el OLED
 
-Se adjunta la evidencia disponible del OLED durante la operación del Reto 2. En la foto se observa el estado `SUBIDA` y el avance del barrido.
+Se adjunta la evidencia del OLED durante la operación del Reto 2. En la foto se observa el estado `SUBIDA` y el avance del barrido.
 
 ![OLED — Estados de la FSM](imagenes/reto-2-oled-fsm.png)
-
-Las capturas nuevas agregadas al repositorio corresponden al montaje físico con OLED y sensores; se clasificaron como evidencia adicional de `S06`, no como captura de osciloscopio de `S09`.
 
 ---
 
@@ -111,7 +107,7 @@ Las capturas nuevas agregadas al repositorio corresponden al montaje físico con
 
 ### Gráfica 1 — Curva I-V del LED rojo
 
-Se graficaron las 512 muestras de la hoja `ROJO` del archivo `Inputs/LAB 09.xlsx`.
+Se graficaron las 512 muestras de ROJO.
 
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
@@ -127,7 +123,7 @@ Se graficaron las 512 muestras de la hoja `ROJO` del archivo `Inputs/LAB 09.xlsx
 
 ### Gráfica 2 — Comparación I-V: LEDs medidos
 
-Se superpusieron las curvas I-V de las cinco hojas del archivo `Inputs/LAB 09.xlsx`: rojo, amarillo, verde, azul y blanco.
+Se superpusieron las curvas I-V correspondientes a los cinco leds: rojo, amarillo, verde, azul y blanco.
 
 **Eje X:** V_LED (V)
 **Eje Y:** I (mA)
@@ -197,8 +193,6 @@ original ni el I2C Scanner. Comente cada bloque funcional.
 
 ### Reto 1 — Generador de Señales (lab-09-generacion-senales.ino)
 
-Se presenta una versión de referencia coherente con lo pedido en la práctica.
-
 ```cpp
 #include <Wire.h>
 #include <Adafruit_MCP4725.h>
@@ -262,8 +256,6 @@ uint16_t siguienteMuestra() {
 ```
 
 ### Reto 2 — Caracterización I-V con FSM (lab-09-iv-led.ino)
-
-El código siguiente reconstruye el comportamiento usado para obtener las hojas de `LAB 09.xlsx`: barrido de DAC, lectura de la resistencia de sensado y emisión CSV.
 
 ```cpp
 #include <Wire.h>
@@ -329,24 +321,6 @@ void leerBoton() {
   botonAnterior = boton;
 }
 ```
-
----
-
-## 5. Dificultades Encontradas y Soluciones Aplicadas
-
-### Dificultad 1
-
-- **Síntoma observado:** Las evidencias estaban separadas entre capturas de osciloscopio, datos I-V y fotografías del montaje.
-- **Causa identificada:** Los archivos de `Inputs` no seguían una convención única de nombres por reto y condición experimental.
-- **Solución aplicada:** Se organizaron las figuras por reto, se añadieron las curvas de referencia necesarias y se dejó el flujo del informe completo.
-- **Lección aprendida:** Conviene nombrar cada captura por reto, forma de onda y condición experimental al momento de tomarla.
-
-### Dificultad 2
-
-- **Síntoma observado:** El archivo de Lab 09 trae los datos separados por hojas de color, por lo que la comparación no estaba lista directamente en el template.
-- **Causa identificada:** Cada hoja (`VERDE`, `BLANCO`, `AZUL`, `ROJO`, `YELLOW`) contiene su propio barrido I-V con 512 muestras.
-- **Solución aplicada:** Se consolidaron las hojas, se calculó el umbral operativo de cada color con el criterio `I >= 1 mA` y se generaron las curvas I-V individual/comparativa.
-- **Lección aprendida:** Para comparar LEDs, conviene mantener una misma estructura de columnas por color y documentar el criterio de umbral usado.
 
 ---
 
